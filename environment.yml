@@ -1,0 +1,20 @@
+name: la_function
+channels:
+  - defaults
+  - simpleitk
+  - conda-forge
+dependencies:
+  - python==3.9.12
+  - numpy==1.21.5
+  - scipy==1.7.3
+  - matplotlib==3.6.0
+  - simpleitk==2.2.0
+  - cudatoolkit==11.2.2
+  - cudnn==8.1.0
+  - scikit-image==0.19.2
+  - pip
+  - pip:
+      - tensorflow==2.10.0
+      - dipy==1.5.0
+      - voxelmorph==0.2
+  
