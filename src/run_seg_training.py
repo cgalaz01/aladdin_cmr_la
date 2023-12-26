@@ -6,7 +6,7 @@ from tensorflow import keras
 from loader.tf_generator_seg import TensorFlowDataGenerator
 from tf.callbacks.callbacks import get_seg_callbacks
 from tf.utils.seed import set_global_seed
-from configuration_seg import HyperParameters
+from configuration.configuration_aladdin_s import HyperParameters
 from tf.models import aladdin_s
 
 import run_segmentation_seg_evaluation
@@ -46,9 +46,8 @@ if __name__ == '__main__':
             
 
         learning_rate = hparams[hyper_parameters.HP_LEANRING_RATE]
-        if hparams[hyper_parameters.HP_OPTIMISER] == 'adam':
-            optimizer = keras.optimizers.Adam(learning_rate=learning_rate,
-                                              clipvalue=1.0)
+        optimizer = keras.optimizers.Adam(learning_rate=learning_rate,
+                                          clipvalue=1.0)
 
         model.compile(optimizer=optimizer,
                       loss=loss)
@@ -65,4 +64,11 @@ if __name__ == '__main__':
                   epochs=epochs,
                   callbacks=get_seg_callbacks(checkpoint_model_path, folder_name, hparams),
                   verbose=1,)
+
+    
+    # Evaluate models
+    for model_path, data_gen in models_to_evaluate.items():
+        run_segmentation_seg_evaluation.main(model_path, data_gen.cache_directory)
+        run_output_seg_generation.main(model_path, data_gen.cache_directory, 'nifti')
+    
     

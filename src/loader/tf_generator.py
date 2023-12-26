@@ -2,8 +2,8 @@ from typing import Any, Dict, Tuple, Optional
 
 import tensorflow as tf
 
-from loader.data_generator import (BaseDataLoader, VoxelmorphDataLoader,
-                                   VoxelmorphOverlayDataLoader,
+from loader.data_generator import (BaseDataLoader,
+                                   VoxelmorphDataLoader,
                                    VoxelmorphSegDataLoader)
 
 
@@ -59,9 +59,9 @@ class TensorFlowDataGenerator():
     @staticmethod
     def get_generators(batch_size: int, max_buffer_size: Optional[int] = None,
                        memory_cache: bool = False, disk_cache: bool = True,
-                       contour: Optional[Dict[str, Any]] = None, patient_case: Optional[str] = None,
-                       translation_alignment: bool = False,
-                       data_type: Optional[str] = None) -> Tuple[tf.data.Dataset, BaseDataLoader]:
+                       dilation_radius: Optional[float] = None, patient_case: Optional[str] = None,
+                       translation_alignment: bool = False, data_type: Optional[str] = None) -> \
+                    Tuple[tf.data.Dataset, BaseDataLoader]:
         """
         Get the data generators for training.
 
@@ -75,8 +75,8 @@ class TensorFlowDataGenerator():
             Whether to use memory caching. Default is False.
         disk_cache : bool, optional
             Whether to use disk caching. Default is True.
-        contour : Dict[str, Any], optional
-            The contour properties. Default is None.
+        dilation_radius : float, optional
+            The dilation radius of the contour. Default is None.
         patient_case : str, optional
             The patient case. If none then all cases are used. Default is None.
         translation_alignment : bool, optional
@@ -94,7 +94,7 @@ class TensorFlowDataGenerator():
         """
         dg = BaseDataLoader(memory_cache=memory_cache,
                             disk_cache=disk_cache,
-                            contour_properties=contour,
+                            dilation_radius=dilation_radius,
                             patient_case=patient_case,
                             translation_alignment=translation_alignment,
                             data_type=data_type)
@@ -122,76 +122,16 @@ class TensorFlowDataGenerator():
                                                            output_shapes,
                                                            output_types,
                                                            max_buffer_size)
-    
 
-    
+
+
 class TensorFlowVxmDataGenerator():
     
     @staticmethod
     def get_generators(batch_size: int, max_buffer_size: Optional[int] = None,
                        memory_cache: bool = False, disk_cache: bool = True,
-                       patient_case: Optional[str] = None, translation_alignment: bool = False, 
-                       data_type: Optional[str] = None) -> Tuple[tf.data.Dataset, VoxelmorphDataLoader]:
-        """
-        Get TensorFlow data generators for Voxelmorph.
-
-        Parameters
-        ----------
-        batch_size : int
-            The batch size for the data generator.
-        max_buffer_size : int, optional
-            The maximum buffer size for the data generator. Default is None.
-        memory_cache : bool, optional
-            Whether to enable memory caching. Default is False.
-        disk_cache : bool, optional
-            Whether to enable disk caching. Default is True.
-        patient_case : str, optional
-            The patient case identifier. Default is None.
-        translation_alignment : bool, optional
-            Whether to enable translation alignment. Default is False.
-        data_type : str, optional
-            The data type for the tensors. Default is None.
-
-        Returns
-        -------
-        train_generator : tf.data.Dataset
-            The prepared training data generator.
-        dg : VoxelmorphDataLoader
-            The data loader object.
-
-        """
-        dg = VoxelmorphDataLoader(memory_cache=memory_cache,
-                                  disk_cache=disk_cache,
-                                  patient_case=patient_case,
-                                  translation_alignment=translation_alignment,
-                                  data_type=data_type)
-        
-        output_shapes = ({'vxm_source_input': tf.TensorShape(dg.image_size),
-                          'vxm_target_input': tf.TensorShape(dg.image_size)},
-                         {'vxm_transformer': tf.TensorShape(dg.image_size),
-                          'vxm_flow': tf.TensorShape(dg.flow_size)})
-        
-        data_type = tf.float32
-        output_types = ({'vxm_source_input': data_type,
-                         'vxm_target_input': data_type,},
-                        {'vxm_transformer': data_type,
-                         'vxm_flow': data_type})
-
-
-        return TensorFlowDataGenerator._prepare_generators(dg, batch_size,
-                                                           output_shapes,
-                                                           output_types,
-                                                           max_buffer_size)
-
-
-
-class TensorFlowVxmOverlayDataGenerator():
-    
-    @staticmethod
-    def get_generators(batch_size: int, max_buffer_size: Optional[int] = None,
-                       memory_cache: bool = False, disk_cache: bool = True,
                        patient_case: Optional[str] = None, translation_alignment: bool = False,
-                       data_type: Optional[str] = None) -> Tuple[tf.data.Dataset, VoxelmorphOverlayDataLoader]:
+                       data_type: Optional[str] = None) -> Tuple[tf.data.Dataset, VoxelmorphDataLoader]:
         """
         Get the generators for the Voxelmorph overlay data.
 
@@ -216,15 +156,15 @@ class TensorFlowVxmOverlayDataGenerator():
         -------
         train_generator : tf.data.Dataset
             The prepared training data generator.
-        dg : VoxelmorphOverlayDataLoader
+        dg : VoxelmorphDataLoader
             The data loader object.
 
         """
-        dg = VoxelmorphOverlayDataLoader(memory_cache=memory_cache,
-                                         disk_cache=disk_cache,
-                                         patient_case=patient_case,
-                                         translation_alignment=translation_alignment,
-                                         data_type=data_type)
+        dg = VoxelmorphDataLoader(memory_cache=memory_cache,
+                                  disk_cache=disk_cache,
+                                  patient_case=patient_case,
+                                  translation_alignment=translation_alignment,
+                                  data_type=data_type)
         
         output_shapes = ({'vxm_source_input': tf.TensorShape(dg.image_size),
                           'vxm_target_input': tf.TensorShape(dg.image_size)},

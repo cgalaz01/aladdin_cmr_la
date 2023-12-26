@@ -1,27 +1,34 @@
+from typing import Optional
 import shutil
 
 from loader.data_generator import BaseDataLoader
 
 
-def cache_data() -> None:
-    contour_properties = {
-        'dilation_radius': 1,
-        'dilate_segmentation': True}
-    data_type = None #'nn'
-    contour_properties = None
+def cache_data(dilation_radius: int, data_type: Optional[str]) -> None:
+    """
+    Saves the processed data.
+
+    Parameters
+    ----------
+    dilation_radius : int
+        The dilation radius to apply to the contour.
+    data_type : str, optional
+        From which data folder to process the data. Default is None.
+
+    Returns
+    -------
+    None
+
+    """
     data_loader = BaseDataLoader(memory_cache=False, disk_cache=True,
-                                 contour_properties=contour_properties,
-                                 translation_alignment=False, data_type=data_type)
+                                 dilation_radius=dilation_radius,
+                                 translation_alignment=True, data_type=data_type)
     
     # Remove old cache to force recaching
     print('Removing cache...')
     shutil.rmtree(data_loader.cache_directory, ignore_errors=True)
     
-    all_data = []
-    all_data.extend(data_loader.train_list)
-    all_data.extend(data_loader.validation_list)
-    all_data.extend(data_loader.test_list)
-    
+    all_data = data_loader.train_list
     # Cache data using class generator
     total_data = len(all_data)
     for i in range(len(all_data)):
@@ -30,4 +37,14 @@ def cache_data() -> None:
         
 
 if __name__ == '__main__':
-    cache_data()
+    # For evaluation
+    dilation_radius = 0
+    data_type = None
+    cache_data(dilation_radius, data_type)
+    dilation_radius = 0
+    data_type = 'nn'
+    cache_data(dilation_radius, data_type)
+    # For training
+    dilation_radius = 2
+    data_type = 'nn'
+    cache_data(dilation_radius, data_type)

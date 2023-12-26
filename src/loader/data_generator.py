@@ -4,7 +4,7 @@ import gc
 import random
 from enum import Enum
 
-from typing import Any, Dict, Tuple, List, Optional, Union
+from typing import Dict, Tuple, List, Optional, Union
 from pathlib import Path
 from glob import glob
 
@@ -26,18 +26,45 @@ class DatasetType(Enum):
 class BaseDataLoader():
     
     def __init__(self, image_size: Tuple[int] = (96, 96, 36), memory_cache: bool = True,
-                 disk_cache: bool = True, contour_properties: Optional[Dict[str, Any]] = None,
+                 disk_cache: bool = True, dilation_radius: Optional[float] = None,
                  patient_case: Optional[str] = None, translation_alignment: bool = False,
                  data_type: Optional[str] = None) -> None:
+        """
+        Initializes the base data loader.
+
+        Parameters
+        ----------
+        image_size : Tuple[int], optional
+            The target crop size of the image. The default is (96, 96, 36).
+        memory_cache : bool, optional
+            Whether to save the data in memory. The default is True.
+        disk_cache : bool, optional
+            Whether to save the data to disk. The default is True.
+        dilation_radius : float, optional
+            The dilation radius to apply to the contour. If None, then then contour
+            is not calculated. The default is None.
+        patient_case : str, optional
+            Which patient cases to include in the data generator. If None, then
+            all available case will be loaded. The default is None.
+        translation_alignment : bool, optional
+            Whether to align the phases of a case. The default is False.
+        data_type : str, optional
+            From which data folder to process the data. Default is None.
+
+        Returns
+        -------
+        None
+
+        """
         self.disk_cache = disk_cache
         self.memory_cache = memory_cache
         self.data_in_memory = {}
         
-        self.contour_properties = contour_properties
+        self.dilation_radius = dilation_radius
         self.translation_alignment = translation_alignment
         
         self.data_directory, self.cache_directory = BaseDataLoader.get_directories(data_type,
-                                                                                   contour_properties)
+                                                                                   dilation_radius)
         
         self.train_directory = Path(os.path.join(self.data_directory, 'train'))
         # Fallback to cached directories if main data does not exist in directory
@@ -55,7 +82,7 @@ class BaseDataLoader():
         
     @staticmethod
     def get_directories(data_type: Optional[str] = None,
-                        contour_properties: Optional[Dict[str, Any]] = None) -> Tuple[Path]:
+                        dilation_radius: Optional[float] = None) -> Tuple[Path]:
         """
         Returns the expected data and cached data folders.
 
@@ -63,9 +90,9 @@ class BaseDataLoader():
         ----------
         data_type : str, optional
             The type of data that will be used. The default is None.
-        contour_properties : Dict[str, Any], optional
-            The proporties used to obtain the segmentation map contour. This defines
-            the naming scheme for the cached folder. The default is None.
+        dilation_radius : float, optional
+            The amount of dilation to apply to the contour. This defines the
+            naming scheme for the cached folder. The default is None.
 
         Returns
         -------
@@ -83,9 +110,8 @@ class BaseDataLoader():
         data_directory = Path(os.path.join(file_path, expected_data_directory))
         
         cache_directory = os.path.join('..', '..', data_folder + '_cache')
-        if contour_properties is not None:
-            name = 'contour_3d'
-            name += '_' + str(contour_properties['dilation_radius'])
+        if dilation_radius is not None:
+            name = 'contour_3d_' + str(dilation_radius)
             cache_directory = os.path.join('..', '..', data_folder + '_' + name + '_cache')
         cache_directory = Path(os.path.join(file_path, cache_directory))
         
@@ -544,7 +570,8 @@ class BaseDataLoader():
         
     
     @staticmethod 
-    def preprocess_data(data: Dict[str, List[sitk.Image]], contour_properties: Dict[str, Any]) -> Dict[str, List[sitk.Image]]:
+    def preprocess_data(data: Dict[str, List[sitk.Image]],
+                        dilation_radius: Optional[float] = None) -> Dict[str, List[sitk.Image]]:
         """
         Preprocesses the data by applying masking and extracting the contour.
 
@@ -552,8 +579,8 @@ class BaseDataLoader():
         ----------
         data : Dict[str, List[sitk.Image]]
             The input data dictionary containing images and segmentations.
-        contour_properties : Dict[str, Any]
-            The contour properties for extracting the edge of segmentations.
+        dilation_radius : float, optional
+            The dilation radius of the contour. The default is None.
 
         Returns
         -------
@@ -565,9 +592,9 @@ class BaseDataLoader():
             masked_image = BaseDataLoader.mask_image(data['images'][i], data['segmentations'][i])
             data['images'][i] = masked_image
             
-            if contour_properties:
+            if dilation_radius:
                 contour = BaseDataLoader.find_edge(data['segmentations'][i],
-                                                   dilation_radius=contour_properties['dilation_radius'])
+                                                   dilation_radius=dilation_radius)
                 data['segmentations'][i] = contour
         
         return data
@@ -702,7 +729,7 @@ class BaseDataLoader():
         else:
             patient_data = self.load_patient_data(patient_directory)
             patient_data = self.preprocess_data(patient_data,
-                                                self.contour_properties,
+                                                self.dilation_radius,
                                                 list(self.image_size)[:3])
             self.save_cache(patient_directory, patient_data)
             self.save_memory(patient_directory, patient_data)
@@ -920,9 +947,9 @@ class BaseDataLoader():
         """
         yield from self.dataset_generator(DatasetType.train, shuffle=shuffle,
                                           verbose=verbose)
-        
-    
-    
+
+
+
 class VoxelmorphDataLoader(BaseDataLoader):
     
     @staticmethod
@@ -930,77 +957,8 @@ class VoxelmorphDataLoader(BaseDataLoader):
                      moving_segmentation: sitk.Image, fixed_segmentation: sitk.Image,
                      add_batch_axis: bool = False, align: bool = False) -> Tuple[Dict[str, np.ndarray]]:
         """
-        Converts the input images and segmentations into a structured data format for VoxelmorphDataLoader.
-
-        Parameters:
-        ----------
-        moving_image : sitk.Image
-            The moving image.
-        fixed_image : sitk.Image
-            The fixed image.
-        moving_segmentation : sitk.Image
-            The moving segmentation.
-        fixed_segmentation : sitk.Image
-            The fixed segmentation.
-        add_batch_axis : bool, optional
-            Whether to add a batch axis to the data. Defaults to False.
-        align : bool, optional
-            Whether to align the images and segmentations. Defaults to False.
-
-        Returns:
-        ----------
-        data : Tuple[Dict[str, np.ndarray]]
-            A tuple containing a dictionary of structured data arrays.
-
-        """
-        moving_image = BaseDataLoader.to_numpy(moving_image)
-        fixed_image = BaseDataLoader.to_numpy(fixed_image)
-        moving_segmentation = BaseDataLoader.to_numpy(moving_segmentation)
-        fixed_segmentation = BaseDataLoader.to_numpy(fixed_segmentation)
-        
-        if align:
-            fixed_image, fixed_segmentation = BaseDataLoader.align_data(fixed_image,
-                                                                        fixed_segmentation,
-                                                                        moving_image,
-                                                                        moving_segmentation)
-        
-        if add_batch_axis:
-            moving_image = np.expand_dims(moving_image, axis=0) 
-            fixed_image = np.expand_dims(fixed_image, axis=0) 
-            moving_segmentation = np.expand_dims(moving_segmentation, axis=0) 
-            fixed_segmentation = np.expand_dims(fixed_segmentation, axis=0)
-        
-        flow_shape = fixed_image.shape + (3,)
-        
-        if moving_image.ndim == 3:
-           moving_image = np.expand_dims(moving_image, axis=-1) 
-        if fixed_image.ndim == 3:
-           fixed_image = np.expand_dims(fixed_image, axis=-1) 
-        if moving_segmentation.ndim == 3:
-           moving_segmentation = np.expand_dims(moving_segmentation, axis=-1) 
-        if fixed_segmentation.ndim == 3:
-           fixed_segmentation = np.expand_dims(fixed_segmentation, axis=-1) 
-        
-        
-        flow = np.zeros(flow_shape, dtype=np.float32)
-        
-        data = ({'vxm_source_input': moving_image,
-                 'vxm_target_input': fixed_image},
-                {'vxm_transformer': fixed_image,
-                 'vxm_flow': flow})
-            
-        return data
-
-
-
-class VoxelmorphOverlayDataLoader(BaseDataLoader):
-    
-    @staticmethod
-    def to_structure(moving_image: sitk.Image, fixed_image: sitk.Image,
-                     moving_segmentation: sitk.Image, fixed_segmentation: sitk.Image,
-                     add_batch_axis: bool = False, align: bool = False) -> Tuple[Dict[str, np.ndarray]]:
-        """
-        Converts the input images and segmentations into a structured data format for the Voxelmorph overlay data loader.
+        Converts the input images and segmentations into a structured data format
+        for the Voxelmorph overlay data loader.
         
         Parameters:
         ----------

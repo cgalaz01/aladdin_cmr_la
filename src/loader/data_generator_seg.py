@@ -9,7 +9,6 @@ from glob import glob
 
 import numpy as np
 
-
 import SimpleITK as sitk
 
 from loader.augment import DataAugmentation
@@ -20,6 +19,26 @@ class SegDataLoader():
     
     def __init__(self, image_size: Tuple[int] = (96, 96, 36), memory_cache: bool = True,
                  disk_cache: bool = True, patient_case: Optional[str] = None) -> None:
+        """
+        Initializes the segmentation data loader.
+
+        Parameters
+        ----------
+        image_size : Tuple[int], optional
+            The target crop size of the image. The default is (96, 96, 36).
+        memory_cache : bool, optional
+            Whether to save the data in memory. The default is True.
+        disk_cache : bool, optional
+            Whether to save the data to disk. The default is True.
+        patient_case : str, optional
+            Which patient cases to include in the data generator. If None, then
+            all available case will be loaded. The default is None.
+
+        Returns
+        -------
+        None
+
+        """
         self.disk_cache = disk_cache
         self.memory_cache = memory_cache
         self.data_in_memory = {}
@@ -28,7 +47,7 @@ class SegDataLoader():
         expected_data_directory = os.path.join('..', '..', 'data')
         self.data_directory = Path(os.path.join(file_path, expected_data_directory))
         
-        self.cache_directory = os.path.join('..', '..', 'data_cache')
+        self.cache_directory = os.path.join('..', '..', 'data_seg_cache')
         self.cache_directory = Path(os.path.join(file_path, self.cache_directory))
         
         self.train_directory = Path(os.path.join(self.data_directory, 'train'))

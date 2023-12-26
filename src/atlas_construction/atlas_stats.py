@@ -125,7 +125,7 @@ if __name__ == '__main__':
     else:
         atlas_output_folder = '_atlas_stats_output'
     
-    atlas_path = os.path.join('_atlas_output', 'all', 'atlas_mesh.vtk')
+    atlas_path = os.path.join('_atlas_output', 'atlas_mesh.vtk')
     
     # Load patient data
     patients = filter_cases(sorted(os.listdir(mesh_folder)), patients=use_patients)

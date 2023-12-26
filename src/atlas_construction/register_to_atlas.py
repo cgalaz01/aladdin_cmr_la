@@ -82,7 +82,8 @@ def load_patient(data_path: str, atlas_image: sitk.Image, atlas_segmentation: si
     dvf_files = sorted(os.listdir(os.path.join(data_path, 'displacements')))     
     dvfs = []
     for i in range(len(dvf_files)):
-        dvf = sitk.ReadImage(os.path.join(data_path, 'displacements', dvf_files[i]))
+        dvf = sitk.ReadImage(os.path.join(data_path, 'displacements', 'full',
+                                          dvf_files[i]))
         dvfs.append(dvf)
         
     # Lazy physical alignment
@@ -671,15 +672,14 @@ def interpolate_mesh(meshes: List[pv.PolyData], atlas_mesh: pv.PolyData) -> List
                                            strategy='null_value',
                                            null_value=0.0,
                                            n_points=None)
-        
+    
     return meshes
 
 
 if __name__ == '__main__':
     output_folder = '_registration_output'
     atlas_path = os.path.join('_atlas_output')
-    base_path = os.path.join('..', '..', 'data', 'train')   
-    dvf_path = os.path.join('..', '..', 'data_displacement_field')   
+    base_path = os.path.join('..', '..', 'data_nn', 'train')   
     patients = sorted(os.listdir(base_path))
     
     print('Loading atlas data...')
@@ -694,7 +694,6 @@ if __name__ == '__main__':
                                                  atlas_image, atlas_seg)
                 
         print('Executing affine registration...')
-        #segmentation = smooth_la(segmentation)
         affine_transformation = affine_register_cases([image], [segmentation],
                                                       ref_image, ref_seg)[0]
         # Apply the transformation

@@ -106,14 +106,11 @@ def load_patient_data(base_path: str, patients: List[str], target_image: sitk.Im
     for patient in patients:
         image_path = os.path.join(base_path, patient, 'images')
         segmentation_path = os.path.join(base_path, patient, 'segmentations')
-        displacement_path = os.path.join('data_nn_contour_nn', 'displacement_field',
-                                         patient, 'contour')
 
         file_path = os.path.join(image_path, '00.nii')
         moving_image = sitk.ReadImage(file_path)
         file_path = os.path.join(segmentation_path, '00.nii')
-        moving_segmentation = sitk.ReadImage(file_path)
-        file_path = os.path.join(displacement_path, '00.nii.gz')
+        moving_segmentation = sitk.ReadImage(file_path)\
         
         if lazy_physical_alignment:
             moving_image.CopyInformation(target_image)
@@ -972,7 +969,7 @@ def smooth_mesh(mesh: pv.PolyData) -> pv.PolyData:
     
 if __name__ == '__main__':
     print('Executing atlas construction...')
-    base_path = os.path.join('..', '..', 'data', 'train')   
+    base_path = os.path.join('..', '..', 'data_nn', 'train')   
     patients = filter_cases(sorted(os.listdir(base_path)))
     
     ###########
