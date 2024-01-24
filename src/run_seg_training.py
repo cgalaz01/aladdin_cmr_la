@@ -9,7 +9,6 @@ from tf.utils.seed import set_global_seed
 from configuration.configuration_aladdin_s import HyperParameters
 from tf.models import aladdin_s
 
-import run_segmentation_seg_evaluation
 import run_output_seg_generation
 
 import voxelmorph as vxm   
@@ -53,7 +52,7 @@ if __name__ == '__main__':
                       loss=loss)
             
             
-        folder_name = 'seg' + date_str
+        folder_name = 'aladdin_s' + date_str
         models_to_evaluate[folder_name] = data_gen
         if patient_case:
             folder_name = os.path.join(folder_name, patient_case)
@@ -66,9 +65,8 @@ if __name__ == '__main__':
                   verbose=1,)
 
     
-    # Evaluate models
+    # Save outputs
     for model_path, data_gen in models_to_evaluate.items():
-        run_segmentation_seg_evaluation.main(model_path, data_gen.cache_directory)
         run_output_seg_generation.main(model_path, data_gen.cache_directory, 'nifti')
     
     

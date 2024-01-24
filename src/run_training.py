@@ -18,8 +18,6 @@ from tf.losses.loss import l1_loss, l2_loss
 from tf.losses.deform import BendingEnergy, GradientNorm
 from tf.utils.seed import set_global_seed
 
-import run_segmentation_evaluation
-import run_displacement_field_evaluation
 import run_output_generation
 
 import voxelmorph as vxm
@@ -257,11 +255,7 @@ if __name__ == '__main__':
                   callbacks=get_reg_callbacks(checkpoint_model_path, folder_name, hparams),
                   verbose=1)
     
-    # Evaluate models
+    # Save outputs
     for model_path, data_gen in models_to_evaluate.items():
         run_output_generation.main(model_path, data_gen.cache_directory, model_type,
                                    False, 'nifti')
-        run_segmentation_evaluation.main(model_path, data_gen.cache_directory, model_type,
-                                         False)
-        run_displacement_field_evaluation.main(model_path, data_gen.cache_directory, model_type,
-                                               False)

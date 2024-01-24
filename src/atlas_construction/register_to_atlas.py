@@ -76,10 +76,10 @@ def load_patient(data_path: str, atlas_image: sitk.Image, atlas_segmentation: si
     """
     image_path = os.path.join(data_path, 'images', '00.nii.gz')
     image = sitk.ReadImage(image_path)
-    segmentation_path = os.path.join(base_path, patient, 'segmentations', '00.nii.gz')
+    segmentation_path = os.path.join(data_path, 'segmentations', '00.nii.gz')
     segmentation = sitk.ReadImage(segmentation_path)
     
-    dvf_files = sorted(os.listdir(os.path.join(data_path, 'displacements')))     
+    dvf_files = sorted(os.listdir(os.path.join(data_path, 'displacements', 'full')))     
     dvfs = []
     for i in range(len(dvf_files)):
         dvf = sitk.ReadImage(os.path.join(data_path, 'displacements', 'full',

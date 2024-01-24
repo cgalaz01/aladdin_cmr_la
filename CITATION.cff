@@ -1,0 +1,8 @@
+@misc{galazis2023highresolution,
+      title={High-Resolution Maps of Left Atrial Displacements and Strains Estimated with 3D CINE MRI and Unsupervised Neural Networks}, 
+      author={Christoforos Galazis and Samuel Shepperd and Emma Brouwer and Sandro Queirós and Ebraham Alskaf and Mustafa Anjari and Amedeo Chiribiri and Jack Lee and Anil A. Bharath and Marta Varela},
+      year={2023},
+      eprint={2312.09387},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
