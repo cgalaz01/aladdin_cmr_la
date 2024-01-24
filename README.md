@@ -48,7 +48,7 @@ aladdin_cmr_la/
 		│	│	├── 00.nii.gz
 		│	│	├── ...
 		│	│	└── 19.nii.gz
-		│	└──	segmentations/
+		│	└── segmentations/
 		│		├── 00.nii.gz
 		│		├── ...
 		│		└── 19.nii.gz
@@ -57,7 +57,7 @@ aladdin_cmr_la/
 			│	├── 00.nii.gz
 			│	├── ...
 			│	└── 19.nii.gz
-			└──	segmentations/
+			└── segmentations/
 				├── 00.nii.gz
 				├── ...
 				└── 19.nii.gz
@@ -115,9 +115,9 @@ aladdin_cmr_la/
 	└── train/
 		└── <patient>/
 			├── images/
-			├──	segmentations/
-			└──displacements/
-				└──full/
+			├── segmentations/
+			└── displacements/
+				└── full/
 ```
 					
 To construct the atlas we execute the following commands:
