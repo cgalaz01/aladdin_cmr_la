@@ -1,8 +1,8 @@
-# Aladdin: High-Resolution Maps of Left Atrial Displacements and Strains Estimated with 3D CINE MRI and Unsupervised Neural Networks
+# Aladdin: High-Resolution Maps of Left Atrial Displacements and Strains Estimated with 3D CINE MRI
 
 This repository is the source code for Aladdin. Details on the workflow can be found here: https://arxiv.org/abs/2312.09387
 
-![workflow](figures/la_workflow.jpg "Workflow overview of Aladdin")
+![workflow](supplements/la_workflow.jpg "Workflow overview of Aladdin")
 
 This is a complete motion analysis workflow (displacement and strains) of the left atrium (LA) using 3D Cine MRI scans. This aim is to identify regional motion abnormalities that can be attributed to an underlying condition. 
 
@@ -14,12 +14,12 @@ The workflow consists of:
 * Regional abnormality detection from the atlas distribution
 
 ## Setup
-To download the code to your local repository, we suggest to use Git:
+To download the code to your local repository, we suggest using Git:
 ```shell
 git clone https://github.com/cgalaz01/aladdin_cmr_la.git
 ```
 
-The code is implemented in Python and all libraries and their versions can be found in the file 'environment.yml'. To setup the environment we suggest to use Anaconda.
+The code is implemented in Python and all libraries and their versions can be found in the file 'environment.yml'. To setup the environment we suggest using Anaconda.
 To install with Anaconda:
 ```shell
 # Navigate to the root directory
@@ -120,16 +120,16 @@ aladdin_cmr_la/
 				└── full/
 ```
 					
-To construct the atlas we execute the following commands:
+To construct the atlas, we execute the following commands:
 ```shell
 cd src/atlas_construction
 python atlas_generation.py		# Constructs the structure of the atlas from the healthy participants
 python register_to_atlas.py		# Calculates the strains and maps the displacement and strain values to the atlas
-python atlas_stats.py 			# Obtaines the disitrbution of the displacement and strain values of healthy participants mapped to the atlas
+python atlas_stats.py 			# Obtains the distribution of the displacement and strain values of healthy participants mapped to the atlas
 python registration_stats.py	# Calculates the Mahalanobis distance of each case to the atlas' distribution of displacement and strain values
 ```
 
-The relavant results will be stored in the folder:
+The relevant results will be stored in the folder:
 ```
 aladdin_cmr_la/src/atlas_construction/_atlas_output/
 ```
@@ -148,5 +148,4 @@ if you found this code useful for your project please cite as:
 ```
 	
 ## Acknowledgement
-This project was supported by the UK Research and Innovation (UKRI) Centres of Doctoral Training (CDT) in Artificial Intelligence for Healthcare (AI4H) http://ai4health.io (Grant No. EP/S023283/1) and the British Heart Foundation Centre of Research Excellence at Imperial College London (RE/18/4/34215). We acknowledge computational resources and support provided by the Imperial College Research Computing Service (http://doi.org/10.14469/hpc/2232).
-
+This project was supported by the UK Research and Innovation (UKRI) Centres of Doctoral Training (CDT) in Artificial Intelligence for Healthcare (AI4H) http://ai4health.io (Grant No. EP/S023283/1) and the British Heart Foundation Centre of Research Excellence at Imperial College London (RE/18/4/34215).
