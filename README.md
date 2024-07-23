@@ -2,6 +2,9 @@
 
 This repository is the source code for Aladdin. Details on the workflow can be found here: https://arxiv.org/abs/2312.09387
 
+Source code can be found in the subdirectory: https://github.com/cgalaz01/aladdin_cmr_la/tree/main/src
+Supplementary figures if the paper can be found in the subdirectory: https://github.com/cgalaz01/aladdin_cmr_la/tree/main/supplements
+
 ![workflow](supplements/la_workflow.jpg "Workflow overview of Aladdin")
 
 This is a complete motion analysis workflow (displacement and strains) of the left atrium (LA) using 3D Cine MRI scans. This aim is to identify regional motion abnormalities that can be attributed to an underlying condition. 
