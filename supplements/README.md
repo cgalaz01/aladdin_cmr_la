@@ -62,6 +62,10 @@ _<span id="SupTab1">SupTab. 1</span>_ Patient metrics including left atrial volu
 |:--:|
 | _<span id="SupFig3">SupFig. 3</span>_ The correlation matrix between the left atrial volume (LAV), left ventricular ejection fraction (LVEF), left atrial active ejection fraction (LAaEF), and left atrial ejection fraction (LAEF), as estimated from the 2-chamber (2CH), 4-chamber (4CH), and 3D views. |
 
+| ![global_strains](global_results/strains.png "Normalized strains of 2-Chamber, 4-Chamber and 3D Views") |
+|:--:|
+| _<span id="SupFig4">SupFig. 4</span>_ Comparison between the normalized global longitudinal strains from the 2-chamber and 4-chamber, and the mean principal strain values from the 3D view. |
+
 
 ## Regional Results (Atlas-based)
 | ![atlas](regional_results/atlas.gif "Overview of the atlas") | 
