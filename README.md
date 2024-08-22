@@ -151,4 +151,4 @@ if you found this code useful for your project please cite as:
 ```
 	
 ## Acknowledgement
-This project was supported by the UK Research and Innovation (UKRI) Centres of Doctoral Training (CDT) in Artificial Intelligence for Healthcare (AI4H) http://ai4health.io (Grant No. EP/S023283/1) and the British Heart Foundation Centre of Research Excellence at Imperial College London (RE/18/4/34215).
+This project was supported by the UK Research and Innovation (UKRI) Centres of Doctoral Training (CDT) in Artificial Intelligence for Healthcare (AI4H) http://ai4health.io (Grant No. EP/S023283/1), the NIHR Imperial Biomedical Research Centre (BRC), and the British Heart Foundation Centre of Research Excellence at Imperial College London (RE/18/4/34215).
