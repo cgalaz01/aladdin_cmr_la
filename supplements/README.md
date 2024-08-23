@@ -38,6 +38,10 @@
 |:--:|
 | _<span id="SupVid7">SupVid. 7</span>_ Comparison of the estimated displacement vector fields achieved of a patient case (52F with myocarditis), from left to right, by Aladdin-R, ANTs, Vxm, and Vxm-seg, respectively, across the cardiac cycle. |
 
+| ![dvf](registration/healthy1_results.gif "The displacement and strains of a representative case") | 
+|:--:|
+| _<span id="SupVid8">SupVid. 8</span>_ The displacement vector fields and first principal strain values across the carduac cycle for a representative case. |
+
 
 ## Global Results
 | ![global_all](global_results/individual.png "The normalized volume, displacement magnitude, and strains across the cardiac cycle for each case") |
@@ -70,28 +74,28 @@ _<span id="SupTab1">SupTab. 1</span>_ Patient metrics including left atrial volu
 ## Regional Results (Atlas-based)
 | ![atlas](regional_results/atlas.gif "Overview of the atlas") | 
 |:--:|
-| _<span id="SupVid8">SupVid. 8</span>_ Overview of the constructed atlas from the available healthy population. The columns depict the whole heart view, the left atrium displacement vector field, and the first principal strain. The anterior and posterior views are shown in the first and second rows, respectively. |
+| _<span id="SupVid9">SupVid. 9</span>_ Overview of the constructed atlas from the available healthy population. The columns depict the whole heart view, the left atrium displacement vector field, and the first principal strain. The anterior and posterior views are shown in the first and second rows, respectively. |
 
 | ![atlas_h1](regional_results/healthy1.gif "Analysis of a healthy case 1 using the atlas") | 
 |:--:|
-| _<span id="SupVid9">SupVid. 9</span>_ The Mahalanobis distance of a healthy case (26M) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+| _<span id="SupVid10">SupVid. 10</span>_ The Mahalanobis distance of a healthy case (26M) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
 
 | ![atlas_h2](regional_results/healthy2.gif "Analysis of a healthy case 2 using the atlas") | 
 |:--:|
-| _<span id="SupVid10">SupVid. 10</span>_ The Mahalanobis distance of a healthy case (22F) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+| _<span id="SupVid11">SupVid. 11</span>_ The Mahalanobis distance of a healthy case (22F) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
 
 | ![atlas_h3](regional_results/healthy3.gif "Analysis of a healthy case 3 using the atlas") | 
 |:--:|
-| _<span id="SupVid11">SupVid. 11</span>_ The Mahalanobis distance of a healthy case (24F) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+| _<span id="SupVid12">SupVid. 12</span>_ The Mahalanobis distance of a healthy case (24F) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
 
 | ![atlas_p1](regional_results/patient1.gif "Analysis of a patient case 1 using the atlas") | 
 |:--:|
-| _<span id="SupVid12">SupVid. 12</span>_ The Mahalanobis distance of a patient case (52F with myocarditis) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+| _<span id="SupVid13">SupVid. 13</span>_ The Mahalanobis distance of a patient case (52F with myocarditis) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
 
 | ![atlas_p2](regional_results/patient2.gif "Analysis of a patient case 2 using the atlas") | 
 |:--:|
-| _<span id="SupVid13">SupVid. 13</span>_ The Mahalanobis distance of a patient case (60M with myocardial infarction) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+| _<span id="SupVid14">SupVid. 14</span>_ The Mahalanobis distance of a patient case (60M with myocardial infarction) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
 
 | ![atlas_p3](regional_results/patient3.gif "Analysis of a patient case 3 using the atlas") | 
 |:--:|
-| _<span id="SupVid14">SupVid. 14</span>_ The Mahalanobis distance of a patient case (57F with non-ischaemic cardiomyopathy) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+| _<span id="SupVid15">SupVid. 15</span>_ The Mahalanobis distance of a patient case (57F with non-ischaemic cardiomyopathy) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
