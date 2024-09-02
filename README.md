@@ -66,23 +66,10 @@ aladdin_cmr_la/
 				└── 19.nii.gz
 ```
 			
-## Running Aladdin-S (Segmentation network)
-To train Aladdin-S and generate the predicted segmentations, simply run the following commands:
-```shell
-cd src
-python run_seg_training.py
-```
+## Running nnU-Net (Segmentation network)
+To train nnU-Net follow the instructionas at: https://github.com/MIC-DKFZ/nnUNet
+The online-learning variant is simply achieved by converting each case to a separate dataset. The fold split is changed to train on cardiac phases 0, 8 and 15 and validate on the remaining cases.
 
-It is expected that the segmentations of phases 0, 8 and 15 are available for training in the data folder.
-	
-The best weights per patient will be stored in the folder:
-```
-aladdin_cmr_la/checkpoint/aladdin_s_<date_time>/<patient>/
-```
-Similarly, the predicted segmentations across the whole cardiac cycle will be saved in the folder:
-```
-aladdin_cmr_la/outputs_seg_aladdin_s_<date_time>_nifti/<patient>/
-```
 
 ## Running Aladdin-R (Image registration network)
 To train Aladdin-R and generate the predicted displacement vector fields, simply run the following commands:

@@ -6,8 +6,7 @@ from tensorflow import keras
 
 from tensorflow.python.platform import tf_logging as logging
 from keras import backend
-from keras.utils import io_utils
-from keras.utils import tf_utils
+from tensorflow.python.keras.utils import tf_utils
 
 
 
@@ -62,12 +61,8 @@ class LoadBestWeightsOnNaN(keras.callbacks.Callback):
         if loss is not None and self.previous_weights is not None:
             loss = tf_utils.sync_to_numpy_or_python_type(loss)
             if np.isnan(loss) or np.isinf(loss) or np.isclose(loss, 0.0, rtol=0, atol=1e-08):
-                io_utils.print_msg(
-                    f'Epoch {epoch}: Invalid loss, loading previous weights')
                 self.model.set_weights(self.previous_weights)
             elif epoch > 5 and loss > 1e4:
-                io_utils.print_msg(
-                    f'Epoch {epoch}: Loss too high, loading previous weights')
                 self.model.set_weights(self.previous_weights)
 
         self.previous_weights = self.model.get_weights()
@@ -245,12 +240,6 @@ class IncreaseLROnPlateau(keras.callbacks.Callback):
                         new_lr = old_lr * self.factor
                         new_lr = min(new_lr, self.max_lr)
                         backend.set_value(self.model.optimizer.lr, new_lr)
-                        if self.verbose > 0:
-                            io_utils.print_msg(
-                                f'\nEpoch {epoch +1}: '
-                                f'IncreaseLROnPlateau increasing '
-                                f'learning rate to {new_lr}.'
-                            )
                         self.cooldown_counter = self.cooldown
                         self.wait = 0
 

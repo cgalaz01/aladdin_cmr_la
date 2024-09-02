@@ -16,4 +16,5 @@ dependencies:
   - pip:
       - tensorflow==2.10.0
       - voxelmorph==0.2
+      - neurite==0.2
   

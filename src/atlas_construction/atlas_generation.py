@@ -19,7 +19,7 @@ __RV_LABEL = 3
 
 def filter_cases(patient_list: List[str]) -> List[str]:
     """
-    Filter the patient list to exclude cases that do not start with 'pat'
+    Filter the patient list to exclude cases that start with 'pat'
     resulting to only healthy cases.
 
     Parameters
@@ -398,6 +398,40 @@ def smooth_and_resample(image: sitk.Image, shrink_factors: List[float],
                          image.GetPixelID())
 
 
+def select_la(image: sitk.Image, segmentation: Optional[sitk.Image] = None) -> sitk.Image:
+    """
+    Selects the left atrium (LA) region from the input image or segmentation.
+
+    Parameters
+    ----------
+    image : sitk.Image
+        The input image or segmentation.
+    segmentation : sitk.Image, optional
+        The segmentation mask of the LA. If provided, the function will mask out
+        anything outside of the LA based on the segmentation. If not provided,
+        the function assumes that the input image is a segmentation and directly
+        selects the LA region.
+
+    Returns
+    -------
+    selected_image : sitk.Image
+        The selected image with only the LA region.
+
+    """
+    temp = sitk.GetArrayFromImage(image)
+    if segmentation is None: # Then the image is a segmentation
+        temp = (temp == __LA_LABEL).astype(temp.dtype)
+    else:
+        # Mask out anything outside of the LA
+        segmentation = sitk.GetArrayFromImage(segmentation)
+        temp = temp * (segmentation).astype(temp.dtype)
+        
+    selected_image = sitk.GetImageFromArray(temp)
+    selected_image.CopyInformation(image)
+        
+    return selected_image
+    
+
 # http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/66_Registration_Demons.html    
 def multiscale_demons(registration_algorithm: Callable, target_image: sitk.Image,
                       moving_image: sitk.Image, initial_transform : Optional[sitk.Transform] = None, 
@@ -515,7 +549,6 @@ def nonrigid_register(target_image: sitk.Image, target_segmentation: sitk.Image,
     if smooth:
         demons_filter.SetMaximumKernelWidth(60)
         demons_filter.SetSmoothDisplacementField(True)
-        demons_filter.SetStandardDeviations(2.0)
     
     target_segmentation = sitk.Cast(target_segmentation, sitk.sitkFloat32)
     moving_segmentation = sitk.Cast(moving_segmentation, sitk.sitkFloat32)
@@ -574,40 +607,6 @@ def nonrigid_register_cases(moving_images: List[sitk.Image], moving_segmentation
         displacement_fields.append(displacement_field)          
         
     return displacement_fields
-
-
-def select_la(image: sitk.Image, segmentation: Optional[sitk.Image] = None) -> sitk.Image:
-    """
-    Selects the left atrium (LA) region from the input image or segmentation.
-
-    Parameters
-    ----------
-    image : sitk.Image
-        The input image or segmentation.
-    segmentation : sitk.Image, optional
-        The segmentation mask of the LA. If provided, the function will mask out
-        anything outside of the LA based on the segmentation. If not provided,
-        the function assumes that the input image is a segmentation and directly
-        selects the LA region.
-
-    Returns
-    -------
-    selected_image : sitk.Image
-        The selected image with only the LA region.
-
-    """
-    temp = sitk.GetArrayFromImage(image)
-    if segmentation is None: # Then the image is a segmentation
-        temp = (temp == __LA_LABEL).astype(temp.dtype)
-    else:
-        # Mask out anything outside of the LA
-        segmentation = sitk.GetArrayFromImage(segmentation)
-        temp = temp * (segmentation).astype(temp.dtype)
-        
-    selected_image = sitk.GetImageFromArray(temp)
-    selected_image.CopyInformation(image)
-        
-    return selected_image
 
 
 def transform_images(moving_images: List[sitk.Image], moving_segmentations: List[sitk.Image],
@@ -723,9 +722,9 @@ def inverse_displacement_field(displacement_field: sitk.DisplacementFieldTransfo
     """
     displacement_field = displacement_field.GetDisplacementField()
     inverse_displacement = sitk.InvertDisplacementField(displacement_field,
-                                                        maximumNumberOfIterations=50,
+                                                        maximumNumberOfIterations=40,
                                                         maxErrorToleranceThreshold=0.001,
-                                                        meanErrorToleranceThreshold=0.0001,
+                                                        meanErrorToleranceThreshold=0.00001,
                                                         enforceBoundaryCondition=True)
     inverse_displacement = sitk.DisplacementFieldTransform(inverse_displacement)
     
@@ -960,7 +959,7 @@ def smooth_mesh(mesh: pv.PolyData) -> pv.PolyData:
 
     """
     mesh = mesh.smooth_taubin(n_iter=20, pass_band=0.01)
-    mesh = mesh.subdivide(2, 'linear')
+    mesh = mesh.subdivide(1, 'linear')
     mesh = mesh.smooth(n_iter=10, feature_smoothing=False)
     mesh = mesh.clean().triangulate()
     

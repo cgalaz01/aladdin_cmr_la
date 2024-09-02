@@ -12,10 +12,10 @@ class HyperParameters():
         self.HP_MODEL = HParamS('model', hp.Discrete(['aladdin_r']))
         self.HP_EPOCHS = HParamS('epochs', hp.Discrete([500]))
         self.HP_BATCH_SIZE = HParamS('batch_size', hp.Discrete([1]))
-        self.HP_LEANRING_RATE = HParamS('learning_rate', hp.Discrete([0.0001]))
+        self.HP_LEANRING_RATE = HParamS('learning_rate', hp.Discrete([0.0005]))
         self.HP_C_DILATION = HParamS('contour_dilation_radius', hp.Discrete([1]))
         self.HP_PATIENT = HParamS('patient', hp.Discrete(get_patient_list()))
-        self.HP_DATA_TYPE = HParamS('data_type', hp.Discrete([False]))  # 'nn'
+        self.HP_DATA_TYPE = HParamS('data_type', hp.Discrete(['nn']))  # 'nn' or False
         self.HP_FLOW_LOSS = HParamS('flow_loss', hp.Discrete(['energy']))
         self.HP_FLOW_LAMBDA = HParamS('flow_lambda', hp.Discrete([0.1]))
         self.HP_SEED = HParamS('seed', hp.Discrete([1456]))

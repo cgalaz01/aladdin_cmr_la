@@ -492,47 +492,6 @@ class BaseDataLoader():
             resample.SetInterpolator(sitk.sitkLinear)
     
         return resample.Execute(image)
-    
-    
-    @staticmethod
-    def mask_image(image_sitk: sitk.Image, segmentation_sitk: sitk.Image,
-                   mask_value: int = 0) -> sitk.Image:
-        """
-        Masks the image given a dilated segmentation of a label.
-
-        Parameters
-        ----------
-        image_sitk : sitk.Image
-            The image to mask.
-        segmentation_sitk : sitk.Image
-            The image with labels.
-        mask_value : int, optional
-            The label in the segmentation to select and mask the image. The
-            default is 0.
-
-        Returns
-        -------
-        image : SimpleITK.Image
-            Dilated masked image.
-
-        """
-        image = sitk.GetArrayFromImage(image_sitk)
-        segmentation = sitk.GetArrayFromImage(segmentation_sitk)
-        
-        # Dilate mask to cover area around border
-        dilation_radius = 4
-        #sphere = morphology.ball(radius=dilation_radius)
-        disk = morphology.disk(radius=dilation_radius)
-        disk = np.expand_dims(disk, axis=0)
-        segmentation = ndimage.binary_dilation(segmentation, structure=disk, iterations=1)
-        
-        # Mask image        
-        image[segmentation < 1] = mask_value
-        
-        image = sitk.GetImageFromArray(image)
-        image.CopyInformation(image_sitk)
-        
-        return image
         
     
     @staticmethod
@@ -560,8 +519,9 @@ class BaseDataLoader():
         
         # Dilate edge for more flexibility when computing the vector field
         if dilation_radius > 0:
-            sphere = morphology.ball(radius=dilation_radius)
-            edge = ndimage.binary_dilation(edge, sphere, iterations=1).astype(int)
+            structure = morphology.ball(radius=dilation_radius)
+            edge = ndimage.binary_dilation(edge, structure, iterations=1).astype(int)
+            edge *= segmentation
         
         edge = sitk.GetImageFromArray(edge)
         edge.CopyInformation(segmentation_sitk)
@@ -573,7 +533,7 @@ class BaseDataLoader():
     def preprocess_data(data: Dict[str, List[sitk.Image]],
                         dilation_radius: Optional[float] = None) -> Dict[str, List[sitk.Image]]:
         """
-        Preprocesses the data by applying masking and extracting the contour.
+        Preprocesses the data by extracting the contour.
 
         Parameters
         ----------
@@ -588,11 +548,8 @@ class BaseDataLoader():
             The preprocessed data dictionary.
 
         """
-        for i in range(len(data['segmentations'])):    
-            masked_image = BaseDataLoader.mask_image(data['images'][i], data['segmentations'][i])
-            data['images'][i] = masked_image
-            
-            if dilation_radius:
+        if dilation_radius is not None and dilation_radius >= 0:
+            for i in range(len(data['segmentations'])):    
                 contour = BaseDataLoader.find_edge(data['segmentations'][i],
                                                    dilation_radius=dilation_radius)
                 data['segmentations'][i] = contour
@@ -729,8 +686,7 @@ class BaseDataLoader():
         else:
             patient_data = self.load_patient_data(patient_directory)
             patient_data = self.preprocess_data(patient_data,
-                                                self.dilation_radius,
-                                                list(self.image_size)[:3])
+                                                self.dilation_radius)
             self.save_cache(patient_directory, patient_data)
             self.save_memory(patient_directory, patient_data)
 
@@ -1009,7 +965,6 @@ class VoxelmorphDataLoader(BaseDataLoader):
         if fixed_segmentation.ndim == 3:
            fixed_segmentation = np.expand_dims(fixed_segmentation, axis=-1) 
         
-        
         flow = np.zeros(flow_shape, dtype=np.float32)
         masked_moving_image = moving_image * moving_segmentation
         masked_fixed_image = fixed_image * fixed_segmentation
@@ -1080,7 +1035,6 @@ class VoxelmorphSegDataLoader(BaseDataLoader):
            moving_segmentation = np.expand_dims(moving_segmentation, axis=-1) 
         if fixed_segmentation.ndim == 3:
            fixed_segmentation = np.expand_dims(fixed_segmentation, axis=-1) 
-        
         
         flow = np.zeros(flow_shape, dtype=np.float32)
         

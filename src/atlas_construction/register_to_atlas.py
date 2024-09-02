@@ -126,7 +126,7 @@ def transform_images_and_dvfs(image: sitk.Image, segmentation: sitk.Image,
     image = sitk.Resample(image, transformation, sitk.sitkLinear,
                           0.0, image.GetPixelID())
     segmentation = sitk.Resample(segmentation, transformation, sitk.sitkNearestNeighbor,
-                                  0, segmentation.GetPixelID())
+                                 0, segmentation.GetPixelID())
     
     for i in range(len(dvfs)):
         # Note: use inverse transformation as it's transformation from fixed to moving

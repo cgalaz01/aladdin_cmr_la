@@ -12,7 +12,7 @@ from loader.tf_generator import (TensorFlowDataGenerator,
 from configuration.configuration_aladdin_r import HyperParameters
 
 from tf.callbacks.callbacks import get_reg_callbacks
-from tf.metrics import dice_score
+from tf.metrics.metrics import dice_score
 from tf.models import aladdin_r, voxelmorph
 from tf.losses.loss import l1_loss, l2_loss
 from tf.losses.deform import BendingEnergy, GradientNorm
@@ -61,7 +61,7 @@ def get_data_generator(model_type: str, patient_case: str,
                                                            disk_cache=True,
                                                            dilation_radius=dilation_radius,
                                                            patient_case=patient_case,
-                                                           translation_alignment=True,
+                                                           translation_alignment=False,
                                                            data_type=data_type)
     
     return train_gen, data_gen
@@ -171,18 +171,18 @@ def get_model_losses(model_type: str, flow_loss_type: str,
         loss = {'vxm_dense_transformer': img_loss,
                 'vxm_seg_transformer': seg_loss,
                 'vxm_dense_flow': flow_loss}
-        loss_weights={'vxm_dense_transformer': 1.0,
-                      'vxm_seg_transformer': 1.0,
-                      'vxm_dense_flow': flow_loss_lambda}
+        loss_weights = {'vxm_dense_transformer': 1.0,
+                        'vxm_seg_transformer': 1.0,
+                        'vxm_dense_flow': flow_loss_lambda}
         metrics = {}
-    elif model_type == 'aladdin-r':
+    elif model_type == 'aladdin_r':
         loss = {'output_fixed': img_loss,
                 'output_moving': img_loss,
                 'flow_params': flow_loss}
-        loss_weights={'output_fixed': 1.0,
-                      'output_moving': 1.0,
-                      'flow_params': flow_loss_lambda}
-        metrics={'output_fixed_seg': dice_score}
+        loss_weights = {'output_fixed': 1.0,
+                        'output_moving': 1.0,
+                        'flow_params': flow_loss_lambda}
+        metrics = {'output_fixed_seg': dice_score}
     
     return loss, loss_weights, metrics
     
@@ -257,5 +257,6 @@ if __name__ == '__main__':
     
     # Save outputs
     for model_path, data_gen in models_to_evaluate.items():
-        run_output_generation.main(model_path, data_gen.cache_directory, model_type,
-                                   False, 'nifti')
+        print(model_path, data_gen.cache_directory, model_type)
+        run_output_generation.main(model_path, data_gen.cache_directory,
+                                   model_type, 'nifti')

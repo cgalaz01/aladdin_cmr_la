@@ -6,6 +6,7 @@ import tensorflow as tf
 from loader.data_generator import (BaseDataLoader, VoxelmorphDataLoader,
                                    VoxelmorphSegDataLoader)
 from loader.data_generator_seg import SegDataLoader
+from tf.metrics.metrics import dice_score
 from tf.losses.loss import l1_loss, l2_loss
 from tf.losses.deform import BendingEnergy, GradientNorm
 from tf.losses.segmentation import SoftDiceLoss
@@ -45,6 +46,7 @@ def load_model(model: str, patient: str) -> tf.keras.Model:
         'displacement_losses': tf.keras.losses.MeanSquaredError(),
         'l1_loss': l1_loss,
         'l2_loss': l2_loss,
+        'dice_score': dice_score,
         'GradientNorm': GradientNorm,
         'VxmDense': vxm.networks.VxmDense,
         'VxmDenseSemiSupervisedSeg': vxm.networks.VxmDenseSemiSupervisedSeg})

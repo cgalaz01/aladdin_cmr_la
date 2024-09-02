@@ -4,7 +4,6 @@ import tensorflow as tf
 
 from tensorflow import keras
 from tensorflow.keras import layers
-from keras.engine.keras_tensor import KerasTensor
 
 import neurite as ne
 import voxelmorph as vxm
@@ -14,8 +13,8 @@ import voxelmorph as vxm
 #########################################
 
 
-def downsample_layer_3d(x: KerasTensor, num_filters: int, activation: Union[str, layers.Activation],
-                        kernel_initializer: str, index_str: str) -> Tuple[KerasTensor, KerasTensor]:
+def downsample_layer_3d(x, num_filters: int, activation: Union[str, layers.Activation],
+                        kernel_initializer: str, index_str: str):
     """
     Downsample layer for 3D Aladdin-R.
 
@@ -54,9 +53,9 @@ def downsample_layer_3d(x: KerasTensor, num_filters: int, activation: Union[str,
 
     
 
-def upsample_layer_3d(x: KerasTensor, x_skip: KerasTensor, num_filters: int,
+def upsample_layer_3d(x, x_skip, num_filters: int,
                       activation: Union[str, layers.Activation], kernel_initializer: str,
-                      index_str: str) -> KerasTensor:
+                      index_str: str):
     """
     Upsample layer for 3D Aladdin-R.
 
@@ -99,8 +98,8 @@ def upsample_layer_3d(x: KerasTensor, x_skip: KerasTensor, num_filters: int,
     return x
 
 
-def latent_layer_3d(x: KerasTensor, num_filters: int, activation: Union[str, layers.Activation],
-                    kernel_initializer: str, index_str: str) -> KerasTensor:  
+def latent_layer_3d(x, num_filters: int, activation: Union[str, layers.Activation],
+                    kernel_initializer: str, index_str: str):  
     """
     Latent layer for 3D Aladdin-R.
 
@@ -131,8 +130,8 @@ def latent_layer_3d(x: KerasTensor, num_filters: int, activation: Union[str, lay
     return x
     
 
-def skip_layer_3d(x: KerasTensor, num_filters: int, ratio: int, kernel_initializer: str,
-                  activation: Union[str, layers.Activation], index_str: str) -> KerasTensor:
+def skip_layer_3d(x, num_filters: int, ratio: int, kernel_initializer: str,
+                  activation: Union[str, layers.Activation], index_str: str):
     """
     Skip layer for 3D Aladdin-R.
 

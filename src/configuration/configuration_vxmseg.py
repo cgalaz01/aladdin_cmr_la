@@ -15,7 +15,7 @@ class HyperParameters():
         self.HP_LEANRING_RATE = HParamS('learning_rate', hp.Discrete([0.0001]))
         self.HP_C_DILATION = HParamS('contour_dilation_radius', hp.Discrete([1]))
         self.HP_PATIENT = HParamS('patient', hp.Discrete([False]))
-        self.HP_DATA_TYPE = HParamS('data_type', hp.Discrete([False]))  # 'nn'
+        self.HP_DATA_TYPE = HParamS('data_type', hp.Discrete(['nn']))  # 'nn' or False
         self.HP_FLOW_LOSS = HParamS('flow_loss', hp.Discrete(['gradl2']))
         self.HP_FLOW_LAMBDA = HParamS('flow_lambda', hp.Discrete([0.0001]))
         self.HP_SEED = HParamS('seed', hp.Discrete([1456]))

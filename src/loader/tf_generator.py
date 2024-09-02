@@ -130,6 +130,7 @@ class TensorFlowVxmDataGenerator():
     @staticmethod
     def get_generators(batch_size: int, max_buffer_size: Optional[int] = None,
                        memory_cache: bool = False, disk_cache: bool = True,
+                       dilation_radius: Optional[float] = None,
                        patient_case: Optional[str] = None, translation_alignment: bool = False,
                        data_type: Optional[str] = None) -> Tuple[tf.data.Dataset, VoxelmorphDataLoader]:
         """
@@ -145,6 +146,8 @@ class TensorFlowVxmDataGenerator():
             Whether to enable memory caching. Default is False.
         disk_cache : bool, optional
             Whether to enable disk caching. Default is True.
+        dilation_radius : float, optional
+            Value ignored. Default is None.
         patient_case : str, optional
             The patient case for the data generator. Default is None.
         translation_alignment : bool, optional
@@ -190,6 +193,7 @@ class TensorFlowVxmSegDataGenerator():
     @staticmethod
     def get_generators(batch_size: int, max_buffer_size: Optional[int] = None,
                        memory_cache: bool = False, disk_cache: bool = True,
+                       dilation_radius: Optional[float] = None,
                        patient_case: Optional[str] = None, translation_alignment: bool = False,
                        data_type: Optional[str] = None) -> Tuple[tf.data.Dataset, VoxelmorphSegDataLoader]:
         """
@@ -205,6 +209,8 @@ class TensorFlowVxmSegDataGenerator():
             Whether to use memory caching. Default is False.
         disk_cache : bool, optional
             Whether to use disk caching. Default is True.
+        dilation_radius : float, optional
+            The dilation radius of the contour. Default is None.
         patient_case : str, optional
             The patient case for the data generator. Default is None.
         translation_alignment : bool, optional

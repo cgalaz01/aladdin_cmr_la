@@ -22,7 +22,7 @@ def cache_data(dilation_radius: int, data_type: Optional[str]) -> None:
     """
     data_loader = BaseDataLoader(memory_cache=False, disk_cache=True,
                                  dilation_radius=dilation_radius,
-                                 translation_alignment=True, data_type=data_type)
+                                 translation_alignment=False, data_type=data_type)
     
     # Remove old cache to force recaching
     print('Removing cache...')
@@ -41,10 +41,9 @@ if __name__ == '__main__':
     dilation_radius = 0
     data_type = None
     cache_data(dilation_radius, data_type)
-    dilation_radius = 0
-    data_type = 'nn'
+    dilation_radius = 1
     cache_data(dilation_radius, data_type)
     # For training
-    dilation_radius = 2
+    dilation_radius = 1
     data_type = 'nn'
     cache_data(dilation_radius, data_type)
