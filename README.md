@@ -34,7 +34,14 @@ conda activate aladdin
 ```
 
 ## Data	
-> Instructions to download the data will be made available soon.
+The data and atlas are available at: https://github.com/cgalaz01/aladdin_cmr_la_data
+
+To easiest way to include the data is by running the following command in the repository root:
+```shell
+python get_data.py
+```
+
+> Note: The data can only be obtained using 'git clone'
 
 The expected location of the data is:
 ```
@@ -65,9 +72,16 @@ aladdin_cmr_la/
 				├── ...
 				└── 19.nii.gz
 ```
+
+From the downloaded data:
+- aladdin_cmr_la/data contains the images and segmentation maps.
+- aladdin_cmr_la/data_nn contains the images and nnU-Net predicted segmentation maps.
+- aladdin_cmr_la/src/atlas_construction/_atlas_output contains the structural atlas used to register a case to.
+- aladdin_cmr_la/src/atlas_construction/_atlas_stats_output contains the healthy population's average displacement vector fields (DVFs) and prinicpal strains (Epr) used to calculate the Mahalanobis distance between an individual case and the atlas.
 			
 ## Running nnU-Net (Segmentation network)
-To train nnU-Net follow the instructionas at: https://github.com/MIC-DKFZ/nnUNet
+To train nnU-Net follow the instructionas at: https://github.com/MIC-DKFZ/nnUNet.
+
 The online-learning variant is simply achieved by converting each case to a separate dataset. The fold split is changed to train on cardiac phases 0, 8 and 15 and validate on the remaining cases.
 
 
@@ -110,13 +124,13 @@ aladdin_cmr_la/
 				└── full/
 ```
 					
-To construct the atlas, we execute the following commands:
+To construct a new atlas, we execute the following commands:
 ```shell
 cd src/atlas_construction
-python atlas_generation.py		# Constructs the structure of the atlas from the healthy participants
-python register_to_atlas.py		# Calculates the strains and maps the displacement and strain values to the atlas
-python atlas_stats.py 			# Obtains the distribution of the displacement and strain values of healthy participants mapped to the atlas
-python registration_stats.py	# Calculates the Mahalanobis distance of each case to the atlas' distribution of displacement and strain values
+python atlas_generation.py			# Constructs the structure of the atlas from the healthy participants
+python register_to_atlas.py			# Calculates the strains and maps the displacement and strain values to the atlas
+python atlas_stats.py 				# Obtains the distribution of the displacement and strain values of healthy participants mapped to the atlas
+python registration_stats.py		# Calculates the Mahalanobis distance of each case to the atlas' distribution of displacement and strain values
 ```
 
 The relevant results will be stored in the folder:
@@ -125,7 +139,7 @@ aladdin_cmr_la/src/atlas_construction/_atlas_output/
 ```
 
 ## Citation
-if you found this code useful for your project please cite as:
+If you found this code useful for your project please cite as:
 ```
 @misc{galazis2023highresolution,
       title={High-Resolution Maps of Left Atrial Displacements and Strains Estimated with 3D CINE MRI and Unsupervised Neural Networks}, 
