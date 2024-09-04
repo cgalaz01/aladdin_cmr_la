@@ -3,6 +3,7 @@
 This repository is the source code for Aladdin. Details on the workflow can be found here: https://arxiv.org/abs/2312.09387
 
 Source code and file descriptions can be found in the subdirectory: https://github.com/cgalaz01/aladdin_cmr_la/tree/main/src
+
 Supplementary figures of the paper can be found in the subdirectory: https://github.com/cgalaz01/aladdin_cmr_la/tree/main/supplements
 
 ![workflow](supplements/la_workflow.jpg "Workflow overview of Aladdin")
@@ -36,7 +37,7 @@ conda activate aladdin
 ## Data	
 The data and atlas are available at: https://zenodo.org/records/13645121
 
-To easiest way to include the data in the repository at the expect directories is by running the following command in the root:
+To easiest way to include the data in the repository at the expected directories is by running the following command in the root:
 ```shell
 python get_data.py
 ```
@@ -125,9 +126,9 @@ aladdin_cmr_la/
 To construct a new atlas, we execute the following commands:
 ```shell
 cd src/atlas_construction
-python atlas_generation.py			# Constructs the structure of the atlas from the healthy participants
-python register_to_atlas.py			# Calculates the strains and maps the displacement and strain values to the atlas
-python atlas_stats.py 				# Obtains the distribution of the displacement and strain values of healthy participants mapped to the atlas
+python atlas_generation.py		# Constructs the structure of the atlas from the healthy participants
+python register_to_atlas.py		# Calculates the strains and maps the displacement and strain values to the atlas
+python atlas_stats.py 			# Obtains the distribution of the displacement and strain values of healthy participants mapped to the atlas
 python registration_stats.py		# Calculates the Mahalanobis distance of each case to the atlas' distribution of displacement and strain values
 ```
 
