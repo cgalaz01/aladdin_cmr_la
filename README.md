@@ -2,8 +2,8 @@
 
 This repository is the source code for Aladdin. Details on the workflow can be found here: https://arxiv.org/abs/2312.09387
 
-Source code can be found in the subdirectory: https://github.com/cgalaz01/aladdin_cmr_la/tree/main/src
-Supplementary figures if the paper can be found in the subdirectory: https://github.com/cgalaz01/aladdin_cmr_la/tree/main/supplements
+Source code and file descriptions can be found in the subdirectory: https://github.com/cgalaz01/aladdin_cmr_la/tree/main/src
+Supplementary figures of the paper can be found in the subdirectory: https://github.com/cgalaz01/aladdin_cmr_la/tree/main/supplements
 
 ![workflow](supplements/la_workflow.jpg "Workflow overview of Aladdin")
 
@@ -34,14 +34,12 @@ conda activate aladdin
 ```
 
 ## Data	
-The data and atlas are available at: https://github.com/cgalaz01/aladdin_cmr_la_data
+The data and atlas are available at: https://zenodo.org/records/13645121
 
-To easiest way to include the data is by running the following command in the repository root:
+To easiest way to include the data in the repository at the expect directories is by running the following command in the root:
 ```shell
 python get_data.py
 ```
-
-> Note: The data can only be obtained using 'git clone'
 
 The expected location of the data is:
 ```
