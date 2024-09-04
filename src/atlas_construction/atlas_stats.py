@@ -129,7 +129,7 @@ if __name__ == '__main__':
     
     # Load patient data
     patients = filter_cases(sorted(os.listdir(mesh_folder)), patients=use_patients)
-    mesh_files = sorted(os.listdir(os.path.join(mesh_folder, patients[0], 'final_meshes')))
+    mesh_files = sorted(os.listdir(os.path.join(mesh_folder, patients[0])))
     
     for k in range(len(mesh_files)):
         mesh_file = mesh_files[k]

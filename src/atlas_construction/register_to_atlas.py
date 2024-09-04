@@ -30,8 +30,6 @@ def load_atlas(atlas_path: str) -> Tuple[sitk.Image, sitk.Image, sitk.Image, sit
         Reference image for the atlas.
     ref_seg : sitk.Image
         Reference segmentation for the atlas.
-    atlas_image : sitk.Image
-        Atlas image.
     atlas_seg : sitk.Image
         Atlas segmentation.
     atlas_mesh : pv.PolyData
@@ -40,15 +38,14 @@ def load_atlas(atlas_path: str) -> Tuple[sitk.Image, sitk.Image, sitk.Image, sit
     """
     ref_image = sitk.ReadImage(os.path.join(base_path, 'reference_image.nii.gz'))
     ref_seg = sitk.ReadImage(os.path.join(base_path, 'reference_segmentation.nii.gz'))
-    atlas_image = sitk.ReadImage(os.path.join(base_path, 'atlas_image.nii.gz'))
     atlas_seg = sitk.ReadImage(os.path.join(base_path, 'atlas_segmentation.nii.gz'))
     
     atlas_mesh = pv.read(os.path.join(base_path, 'atlas_mesh.vtk'))
 
-    return ref_image, ref_seg, atlas_image, atlas_seg, atlas_mesh
+    return ref_image, ref_seg, atlas_seg, atlas_mesh
 
 
-def load_patient(data_path: str, atlas_image: sitk.Image, atlas_segmentation: sitk.Image) -> \
+def load_patient(data_path: str, atlas_segmentation: sitk.Image) -> \
                 Tuple[sitk.Image, sitk.Image, List[sitk.Image]]:
     """
     Load patient images, segmentations and displacements.
@@ -59,8 +56,6 @@ def load_patient(data_path: str, atlas_image: sitk.Image, atlas_segmentation: si
     ----------
     data_path : str
         Path to the patient data.
-    atlas_image : sitk.Image
-        Atlas image used to copy the metadata.
     atlas_segmentation : sitk.Image
         Atlas segmentation used to copy the metadata.
 
@@ -87,7 +82,7 @@ def load_patient(data_path: str, atlas_image: sitk.Image, atlas_segmentation: si
         dvfs.append(dvf)
         
     # Lazy physical alignment
-    image.CopyInformation(atlas_image)
+    image.CopyInformation(atlas_segmentation)
     segmentation.CopyInformation(atlas_segmentation)
     for k in range(len(dvfs)):
         dvfs[k].CopyInformation(atlas_segmentation)
@@ -583,16 +578,16 @@ def compute_strains(meshes: List[pv.PolyData], segmentation: sitk.Image) -> List
         
         # Interpolate the strains to the vertices of the mesh
         face_centers = mesh.cell_centers()
-        face_centers.point_data['strain'] = strain
+        #face_centers.point_data['strain'] = strain
         face_centers.point_data['Epr'] = Epr
         face_centers.point_data['vpr_0'] = vpr[:, 0]
         face_centers.point_data['vpr_1'] = vpr[:, 1]
         face_centers.point_data['vpr_2'] = vpr[:, 2]
         strain_mesh = mesh.interpolate(face_centers, radius=2.0, sharpness=1.0)
-        point_strain = strain_mesh.point_data['strain'].reshape((-1, 3, 3))
+        #point_strain = strain_mesh.point_data['strain'].reshape((-1, 3, 3))
         
         # save everything as a mesh
-        mesh.point_data['strain'] = point_strain
+        #mesh.point_data['strain'] = point_strain
         mesh.point_data['Epr'] = strain_mesh.point_data['Epr']
         mesh.point_data['vpr_0'] = strain_mesh.point_data['vpr_0']
         mesh.point_data['vpr_1'] = strain_mesh.point_data['vpr_1']
@@ -602,7 +597,7 @@ def compute_strains(meshes: List[pv.PolyData], segmentation: sitk.Image) -> List
         mesh.cell_data['vpr_cell_0'] = vpr[:, 0]
         mesh.cell_data['vpr_cell_1'] = vpr[:, 1]
         mesh.cell_data['vpr_cell_2'] = vpr[:, 2]
-        mesh.cell_data['area_ratio'] = area_ratio
+        #mesh.cell_data['area_ratio'] = area_ratio
         mesh.cell_data['cell_normals'] = cell_norms 
         updated_meshes.append(mesh)
         
@@ -640,6 +635,7 @@ def warp_mesh(mesh: pv.PolyData, displacement_field_image: sitk.DisplacementFiel
     vector_displacement = np.asarray(vector_displacement)
     mesh.point_data['registration_dvf'] = vector_displacement
     mesh = mesh.warp_by_vector(vectors='registration_dvf', factor=1.0, inplace=False)
+    del mesh.point_data['registration_dvf']
     
     return mesh
     
@@ -683,15 +679,14 @@ if __name__ == '__main__':
     patients = sorted(os.listdir(base_path))
     
     print('Loading atlas data...')
-    ref_image, ref_seg, atlas_image, atlas_seg, atlas_mesh = load_atlas(atlas_path)
+    ref_image, ref_seg, atlas_seg, atlas_mesh = load_atlas(atlas_path)
     atlas_edge_seg = get_segmentation_edge(atlas_seg)
     
     for patient in patients:
         print('Registering case: ' + patient)
         
         print('Loading patient data...')
-        image, segmentation, dvfs = load_patient(os.path.join(base_path, patient),
-                                                 atlas_image, atlas_seg)
+        image, segmentation, dvfs = load_patient(os.path.join(base_path, patient), atlas_seg)
                 
         print('Executing affine registration...')
         affine_transformation = affine_register_cases([image], [segmentation],
@@ -713,8 +708,9 @@ if __name__ == '__main__':
         
         print('Executing non-rigid registration...')
         displacement_field = nonrigid_register_cases(image, segmentation,
-                                                     atlas_image, atlas_edge_seg,
+                                                     atlas_seg, atlas_edge_seg,
                                                      initial_alignment=None)
+                                                     
         # Apply the displacement to all the meshes across the cardiac cycle
         for i in range(len(meshes)):
             meshes[i] = warp_mesh(meshes[i], displacement_field)
@@ -725,7 +721,7 @@ if __name__ == '__main__':
         meshes = interpolate_mesh(meshes, atlas_mesh)
             
         print('Saving meshes')
-        prefix_mesh_folder = os.path.join(output_folder, patient, 'final_meshes')
+        prefix_mesh_folder = os.path.join(output_folder, patient)
         os.makedirs(prefix_mesh_folder, exist_ok=True)
         for i in range(len(meshes)):
             meshes[i].save(os.path.join(prefix_mesh_folder, f'mesh{i:02d}.vtk'))

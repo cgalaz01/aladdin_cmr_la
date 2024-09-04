@@ -167,14 +167,14 @@ if __name__ == '__main__':
     atlas_stats_folder = '_atlas_stats_output'    
     output_folder = '_registration_stats_output'
     
-    patients = sorted(os.listdir(mesh_folder))
-    atlas_files = sorted(os.listdir(atlas_stats_folder))
+    patients = sorted([f for f in os.listdir(mesh_folder) if f.endswith('.vtk')])
+    atlas_files = sorted([f for f in os.listdir(atlas_stats_folder) if f.endswith('.vtk')])
     
     for patient in patients:
         print('Processing: ' + patient)
-        mesh_files = sorted(os.listdir(os.path.join(mesh_folder, patient, 'final_meshes')))
+        mesh_files = sorted(os.listdir(os.path.join(mesh_folder, patient)))
         for i in range(len(mesh_files)):    
-            patient_mesh = pv.read(os.path.join(mesh_folder, patient, 'final_meshes', mesh_files[i]))
+            patient_mesh = pv.read(os.path.join(mesh_folder, patient, mesh_files[i]))
             atlas_mesh = pv.read(os.path.join(atlas_stats_folder, atlas_files[i]))
             
             patient_mesh = calculate_metrics(patient_mesh, atlas_mesh)
