@@ -46,7 +46,7 @@
 ## Global Results
 | ![global_all](global_results/individual.png "The normalized volume, displacement magnitude, and strains across the cardiac cycle for each case") |
 |:--:|
-| _<span id="SupFig2">SupFig. 2</span>_ The normalized volume, displacement magnitude, and strains across the cardiac cycle, plotted separately for each case is shown. For each case, the following details are provided: age, sex, condition, minimum volume, maximum volume, pre-activation volume, ejection fraction (EF), and active ejection fraction (aEF). |
+| _<span id="SupFig2">SupFig. 2</span>_ The normalized volume, displacement magnitude, and strains across the cardiac cycle, plotted separately for each case is shown. For each case, the following details are provided: age, sex, condition, minimum volume, maximum volume, pre-activation volume, ejection fraction (EF), and active ejection fraction (aEF) calculated from the 3D images. |
 
 
 _<span id="SupTab1">SupTab. 1</span>_ Patient metrics including left atrial volume (LAV), left ventricular ejection fraction (LVEF), left atrial active ejection fraction (LAaEF), and left atrial ejection fraction (LAEF), as estimated from the 2-chamber (2CH), 4-chamber (4CH), and 3D views.
