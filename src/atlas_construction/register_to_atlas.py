@@ -228,8 +228,8 @@ def compute_meshes(segmentation: sitk.Image, displacement_fields: List[sitk.Imag
             mesh = smooth_mesh(mesh)
         
         x = np.linspace(0, displacement_field[..., 0].shape[0] -1, displacement_field[..., 0].shape[0])
-        y = np.linspace(0, displacement_field[..., 2].shape[1] -1, displacement_field[..., 1].shape[1])
-        z = np.linspace(0, displacement_field[..., 1].shape[2] -1, displacement_field[..., 2].shape[2])
+        y = np.linspace(0, displacement_field[..., 1].shape[1] -1, displacement_field[..., 1].shape[1])
+        z = np.linspace(0, displacement_field[..., 2].shape[2] -1, displacement_field[..., 2].shape[2])
         
         xx, yy, zz = np.meshgrid(x, y, z, indexing='ij')
         points = np.stack((xx.flatten(), yy.flatten(), zz.flatten()), axis=-1)
@@ -692,7 +692,7 @@ if __name__ == '__main__':
         affine_transformation = affine_register_cases([image], [segmentation],
                                                       ref_image, ref_seg)[0]
         # Apply the transformation
-        image, segmentation, dvfs = transform_images_and_dvfs(image, segmentation, dvfs)
+        image, segmentation, dvfs = transform_images_and_dvfs(image, segmentation, dvfs, affine_transformation)
         
         
         print('Executing mesh computation...')
