@@ -1,52 +1,62 @@
 # Supplements
 
 ## Data Example
+| <span id="SupFig1">Supplementary Figure 1</span> |
+|:--:|
 | ![data](data/data_example.png "Cross section view and volume across the cardiac cycle") | 
-|:--:|
-| _<span id="SupFig1">SupFig. 1</span>_ The cross-sectional view of the left atrium (LA) (top) and the volume across the cardiac cycle (bottom) of a representative healthy case (26M), acquired using the proposed high-resolution 3D Cine MRI protocol. |
+| _SupFig. 1_ The cross-sectional view of the left atrium (LA) (top) and the volume across the cardiac cycle (bottom) of a representative healthy case (26M), acquired using the proposed high-resolution 3D Cine MRI protocol. |
 
+| <span id="SupVid1">Supplementary Video 1</span> |
+|:--:|
 | ![data_h1](data/data_slice_1.gif "Slice view of volunteer 1 across the cardiac cycle") | 
-|:--:|
-| _<span id="SupVid1">SupVid. 1</span>_ Slice view of the left atrium of a volunteer (26M) acquired using the proposed high-resolution 3D Cine MRI protocol. |
+| _SupVid. 1_ Slice view of the left atrium of a volunteer (26M) acquired using the proposed high-resolution 3D Cine MRI protocol. |
 
-| ![data_h2](data/data_slice_2.gif "Slice view of volunteer 2 across the cardiac cycle") | 
+| <span id="SupVid2">Supplementary Video 2</span> |
 |:--:|
-| _<span id="SupVid2">SupVid. 2</span>_ Slice view of the left atrium of a volunteer (24F) acquired using the proposed high-resolution 3D Cine MRI protocol. |
+| ![data_h2](data/data_slice_2.gif "Slice view of volunteer 2 across the cardiac cycle") |
+| _SupVid. 2_ Slice view of the left atrium of a volunteer (24F) acquired using the proposed high-resolution 3D Cine MRI protocol. |
 
 
 ## Segmentation Results
-| ![la_seg_healthy](segmentation/seg_healthy.gif "Left atrium segmentation results across the cardiac cycle") | 
+| <span id="SupVid3">Supplementary Video 3</span> |
 |:--:|
-| _<span id="SupVid3">SupVid. 3</span>_ The segmentation results across the cardiac cycle for a representative healthy case (26M) is shown. On the left, the estimated segmentation map in a single-slice view, and, on the right, the Dice score and Hausdorff distance.
+| ![la_seg_healthy](segmentation/seg_healthy.gif "Left atrium segmentation results across the cardiac cycle") |
+| _SupVid. 3_ The segmentation results across the cardiac cycle for a representative healthy case (26M) is shown. On the left, the estimated segmentation map in a single-slice view, and, on the right, the Dice score and Hausdorff distance.
 
-| ![la_seg_patient](segmentation/seg_patient.gif "Left atrium segmentation results across the cardiac cycle") | 
+| <span id="SupVid4">Supplementary Video 4</span> |
 |:--:|
-| _<span id="SupVid4">SupVid. 4</span>_ The segmentation results across the cardiac cycle for a representative patient case (52F with myocarditis) is shown. On the left, the estimated segmentation map in a single-slice view, and, on the right, the Dice score and Hausdorff distance.
+| ![la_seg_patient](segmentation/seg_patient.gif "Left atrium segmentation results across the cardiac cycle") | 
+| _SupVid. 4_ The segmentation results across the cardiac cycle for a representative patient case (52F with myocarditis) is shown. On the left, the estimated segmentation map in a single-slice view, and, on the right, the Dice score and Hausdorff distance.
 
 
 
 ## Registration Results
+| <span id="SupVid5">Supplementary Video 5</span> |
+|:--:|
 | ![la_reg](registration/la_reg.gif "Left atrium registration results across the cardiac cycle") | 
-|:--:|
-| _<span id="SupVid5">SupVid. 5</span>_ The image registration results across the cardiac cycle for a representative case is shown. Each row displays a slice of the resulting registration for the models: ANTs, Vxm-seg, Vxm, and Aladdin-R, respectively. The plots illustrate the volume, Dice score, and Hausdorff distance achieved by each of the models. |
+| _SupVid. 5_ The image registration results across the cardiac cycle for a representative case is shown. Each row displays a slice of the resulting registration for the models: ANTs, Vxm-seg, Vxm, and Aladdin-R, respectively. The plots illustrate the volume, Dice score, and Hausdorff distance achieved by each of the models. |
 
+| <span id="SupVid6">Supplementary Video 6</span> |
+|:--:|
 | ![dvf](registration/dvf_comparison_healthy.gif "Comparison of the estimated displacement vector fields of a healthy case") | 
-|:--:|
-| _<span id="SupVid6">SupVid. 6</span>_ Comparison of the estimated displacement vector fields achieved of a healthy case (26M), from left to right, by Aladdin-R, ANTs, Vxm, and Vxm-seg, respectively, across the cardiac cycle. |
+| _SupVid. 6_ Comparison of the estimated displacement vector fields achieved of a healthy case (26M), from left to right, by Aladdin-R, ANTs, Vxm, and Vxm-seg, respectively, across the cardiac cycle. |
 
+| <span id="SupVid7">Supplementary Video 7</span> |
+|:--:|
 | ![dvf](registration/dvf_comparison_patient.gif "Comparison of the estimated displacement vector fields of a patient case") | 
-|:--:|
-| _<span id="SupVid7">SupVid. 7</span>_ Comparison of the estimated displacement vector fields achieved of a patient case (52F with myocarditis), from left to right, by Aladdin-R, ANTs, Vxm, and Vxm-seg, respectively, across the cardiac cycle. |
+| _SupVid. 7_ Comparison of the estimated displacement vector fields achieved of a patient case (52F with myocarditis), from left to right, by Aladdin-R, ANTs, Vxm, and Vxm-seg, respectively, across the cardiac cycle. |
 
-| ![dvf](registration/healthy1_results.gif "The displacement and strains of a representative case") | 
+| <span id="SupVid8">Supplementary Video 8</span> |
 |:--:|
-| _<span id="SupVid8">SupVid. 8</span>_ The displacement vector fields and first principal strain values across the carduac cycle for a representative case. |
+| ![dvf](registration/healthy1_results.gif "The displacement and strains of a representative case") | 
+| _SupVid. 8_ The displacement vector fields and first principal strain values across the carduac cycle for a representative case. |
 
 
 ## Global Results
-| ![global_all](global_results/individual.png "The normalized volume, displacement magnitude, and strains across the cardiac cycle for each case") |
+| <span id="SupFig2">Supplementary Figure 2</span> |
 |:--:|
-| _<span id="SupFig2">SupFig. 2</span>_ The normalized volume, displacement magnitude, and strains across the cardiac cycle, plotted separately for each case is shown. For each case, the following details are provided: age, sex, condition, minimum volume, maximum volume, pre-activation volume, ejection fraction (EF), and active ejection fraction (aEF) calculated from the 3D images. |
+| ![global_all](global_results/individual.png "The normalized volume, displacement magnitude, and strains across the cardiac cycle for each case") |
+| _SupFig. 2_ The normalized volume, displacement magnitude, and strains across the cardiac cycle, plotted separately for each case is shown. For each case, the following details are provided: age, sex, condition, minimum volume, maximum volume, pre-activation volume, ejection fraction (EF), and active ejection fraction (aEF) calculated from the 3D images. |
 
 
 _<span id="SupTab1">SupTab. 1</span>_ Patient metrics including left atrial volume (LAV), left ventricular ejection fraction (LVEF), left atrial active ejection fraction (LAaEF), and left atrial ejection fraction (LAEF), as estimated from the 2-chamber (2CH), 4-chamber (4CH), and 3D views.
@@ -62,40 +72,49 @@ _<span id="SupTab1">SupTab. 1</span>_ Patient metrics including left atrial volu
 | P8   | F   | 79          | Myocardial infraction        | 23        | 62       | 45.9          | 55.3         | 39.8          | 65.3         | 37.6            | 57.6           | 35.3         | 48.0        |
 
 
+| <span id="SupFig3">Supplementary Figure 3</span> |
+|:--:|
 | ![global_corr](global_results/correlation_matrix.png "Correlation matrix between estimated values from 2-Chamber, 4-Chamber and 3D Views") |
-|:--:|
-| _<span id="SupFig3">SupFig. 3</span>_ The correlation matrix between the left atrial volume (LAV), left ventricular ejection fraction (LVEF), left atrial active ejection fraction (LAaEF), and left atrial ejection fraction (LAEF), as estimated from the 2-chamber (2CH), 4-chamber (4CH), and 3D views. |
+| _SupFig. 3_ The correlation matrix between the left atrial volume (LAV), left ventricular ejection fraction (LVEF), left atrial active ejection fraction (LAaEF), and left atrial ejection fraction (LAEF), as estimated from the 2-chamber (2CH), 4-chamber (4CH), and 3D views. |
 
-| ![global_strains](global_results/strains.png "Normalized strains of 2-Chamber, 4-Chamber and 3D Views") |
+| <span id="SupFig4">Supplementary Figure 4</span> |
 |:--:|
-| _<span id="SupFig4">SupFig. 4</span>_ Comparison between the normalized global longitudinal strains from the 2-chamber and 4-chamber, and the mean principal strain values from the 3D view. |
+| ![global_strains](global_results/strains.png "Normalized strains of 2-Chamber, 4-Chamber and 3D Views") |
+| _SupFig. 4_ Comparison between the normalized global longitudinal strains from the 2-chamber and 4-chamber, and the mean principal strain values from the 3D view. |
 
 
 ## Regional Results (Atlas-based)
-| ![atlas](regional_results/atlas.gif "Overview of the atlas") | 
+| <span id="SupVid9">Supplementary Video 9</span> |
 |:--:|
-| _<span id="SupVid9">SupVid. 9</span>_ Overview of the constructed atlas from the available healthy population. The columns depict the whole heart view, the left atrium displacement vector field, and the first principal strain. The anterior and posterior views are shown in the first and second rows, respectively. |
+| ![atlas](regional_results/atlas.gif "Overview of the atlas") |
+| _SupVid. 9_ Overview of the constructed atlas from the available healthy population. The columns depict the whole heart view, the left atrium displacement vector field, and the first principal strain. The anterior and posterior views are shown in the first and second rows, respectively. |
 
+| <span id="SupVid10">Supplementary Video 10</span> |
+|:--:|
 | ![atlas_h1](regional_results/healthy1.gif "Analysis of a healthy case 1 using the atlas") | 
-|:--:|
-| _<span id="SupVid10">SupVid. 10</span>_ The Mahalanobis distance of a healthy case (26M) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+| _SupVid. 10_ The Mahalanobis distance of a healthy case (26M) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
 
-| ![atlas_h2](regional_results/healthy2.gif "Analysis of a healthy case 2 using the atlas") | 
+| <span id="SupVid11">Supplementary Video 11</span> |
 |:--:|
-| _<span id="SupVid11">SupVid. 11</span>_ The Mahalanobis distance of a healthy case (22F) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+| ![atlas_h2](regional_results/healthy2.gif "Analysis of a healthy case 2 using the atlas") |
+| _SupVid. 11_ The Mahalanobis distance of a healthy case (22F) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
 
-| ![atlas_h3](regional_results/healthy3.gif "Analysis of a healthy case 3 using the atlas") | 
+| <span id="SupVid12">Supplementary Video 12</span> |
 |:--:|
-| _<span id="SupVid12">SupVid. 12</span>_ The Mahalanobis distance of a healthy case (24F) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+| ![atlas_h3](regional_results/healthy3.gif "Analysis of a healthy case 3 using the atlas") |
+| _SupVid. 12_ The Mahalanobis distance of a healthy case (24F) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
 
-| ![atlas_p1](regional_results/patient1.gif "Analysis of a patient case 1 using the atlas") | 
+| <span id="SupVid13">Supplementary Video 13</span> |
 |:--:|
-| _<span id="SupVid13">SupVid. 13</span>_ The Mahalanobis distance of a patient case (52F with myocarditis) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+| ![atlas_p1](regional_results/patient1.gif "Analysis of a patient case 1 using the atlas") |
+| _SupVid. 13_ The Mahalanobis distance of a patient case (52F with myocarditis) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
 
-| ![atlas_p2](regional_results/patient2.gif "Analysis of a patient case 2 using the atlas") | 
+| <span id="SupVid14">Supplementary Video 14</span> |
 |:--:|
-| _<span id="SupVid14">SupVid. 14</span>_ The Mahalanobis distance of a patient case (60M with myocardial infarction) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+| ![atlas_p2](regional_results/patient2.gif "Analysis of a patient case 2 using the atlas") |
+| _SupVid. 14_ The Mahalanobis distance of a patient case (60M with myocardial infarction) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
 
-| ![atlas_p3](regional_results/patient3.gif "Analysis of a patient case 3 using the atlas") | 
+| <span id="SupVid15">Supplementary Video 15</span> |
 |:--:|
-| _<span id="SupVid15">SupVid. 15</span>_ The Mahalanobis distance of a patient case (57F with non-ischaemic cardiomyopathy) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+| ![atlas_p3](regional_results/patient3.gif "Analysis of a patient case 3 using the atlas") |
+| _SupVid. 15_ The Mahalanobis distance of a patient case (57F with non-ischaemic cardiomyopathy) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
