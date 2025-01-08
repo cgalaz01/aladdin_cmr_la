@@ -1,14 +1,15 @@
-# Aladdin: High-Resolution Maps of Left Atrial Displacements and Strains Estimated with 3D CINE MRI
+# Aladdin: High-Resolution Maps of Left Atrial Displacements and Strains Estimated with 3D Cine MRI using Online Learning Neural Networks
 
-This repository is the source code for Aladdin. Details on the workflow can be found here: https://arxiv.org/abs/2312.09387
+This repository is the source code for Aladdin:
+* Details on the workflow can be found here: https://doi.org/10.1109/TMI.2025.3526364
+* Source code and file descriptions can be found in the subdirectory: https://github.com/cgalaz01/aladdin_cmr_la/tree/main/src
+* Data is available to download from: https://zenodo.org/records/13645121
+* Supplementary figures of the paper can be found in the subdirectory: https://github.com/cgalaz01/aladdin_cmr_la/tree/main/supplements
 
-Source code and file descriptions can be found in the subdirectory: https://github.com/cgalaz01/aladdin_cmr_la/tree/main/src
-
-Supplementary figures of the paper can be found in the subdirectory: https://github.com/cgalaz01/aladdin_cmr_la/tree/main/supplements
-
-![workflow](supplements/la_workflow.jpg "Workflow overview of Aladdin")
-
-This is a complete motion analysis workflow (displacement and strains) of the left atrium (LA) using 3D Cine MRI scans. This aim is to identify regional motion abnormalities that can be attributed to an underlying condition. 
+| <span id="Aladdin">Workflow of Aladdin</span> |
+|:--:|
+| ![workflow](supplements/la_workflow.jpg "Workflow overview of Aladdin") |
+| This is a complete motion analysis workflow (displacement and strains) of the left atrium (LA) using 3D Cine MRI scans. The aim is to identify regional motion abnormalities that can be attributed to an underlying condition. |
 
 The workflow consists of:
 * Online few-shot segmentation network to identify the contour of the LA across the whole cardiac cycle
@@ -16,6 +17,11 @@ The workflow consists of:
 * Strain calculation from the DVFs
 * Strain and DVFs atlas construction
 * Regional abnormality detection from the atlas distribution
+
+| <span id="AtlasVid">Atlas Video</span> |
+|:--:|
+| ![atlas](supplements/regional_results/atlas.gif "Overview of the atlas") |
+| Overview of the constructed atlas from the available healthy population. The columns depict the whole heart view, the left atrium displacement vector field, and the first principal strain. The anterior and posterior views are shown in the first and second rows, respectively. |
 
 ## Setup
 To download the code to your local repository, we suggest using Git:
@@ -140,15 +146,17 @@ aladdin_cmr_la/src/atlas_construction/_atlas_output/
 ## Citation
 If you found this code useful for your project please cite as:
 ```
-@misc{galazis2023highresolution,
-      title={High-Resolution Maps of Left Atrial Displacements and Strains Estimated with 3D CINE MRI and Unsupervised Neural Networks}, 
-      author={Christoforos Galazis and Samuel Shepperd and Emma Brouwer and Sandro Queirós and Ebraham Alskaf and Mustafa Anjari and Amedeo Chiribiri and Jack Lee and Anil A. Bharath and Marta Varela},
-      year={2023},
-      eprint={2312.09387},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
-}
+@ARTICLE{10829702,
+  author={Galazis, Christoforos and Shepperd, Samuel and Brouwer, Emma J P and Queirós, Sandro and Alskaf, Ebraham and Anjari, Mustafa and Chiribiri, Amedeo and Lee, Jack and Bharath, Anil A. and Varela, Marta},
+  journal={IEEE Transactions on Medical Imaging}, 
+  title={High-Resolution Maps of Left Atrial Displacements and Strains Estimated with 3D Cine MRI using Online Learning Neural Networks}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={1-1},
+  keywords={Strain;Deformation;Magnetic resonance imaging;Three-dimensional displays;Image segmentation;Motion segmentation;Artificial neural networks;Biomarkers;Vectors;Image registration;Atrial Cine MRI;Left Atrial Function;Segmentation Neural Network;Image Registration Neural Network;Online Learning;Left Atrial Displacements;Left Atrial Strains;Atlas of the Left Atrium;Left Atrial Mechanics},
+  doi={10.1109/TMI.2025.3526364}}
 ```
 	
 ## Acknowledgement
-This project was supported by the UK Research and Innovation (UKRI) Centres of Doctoral Training (CDT) in Artificial Intelligence for Healthcare (AI4H) http://ai4health.io (Grant No. EP/S023283/1), the NIHR Imperial Biomedical Research Centre (BRC), and the British Heart Foundation Centre of Research Excellence at Imperial College London (RE/18/4/34215).
+This work was supported by the UK Research and Innovation (UKRI) Centres of Doctoral Training (CDT) in Artificial Intelligence for Healthcare (AI4H) (http://ai4health.io) (Grant No. EP/S023283/1), St George’s Hospital Charity, the NIHR Imperial Biomedical Research Centre (BRC), and the British Heart Foundation Centre of Research Excellence at Imperial College London (RE/18/4/34215).
