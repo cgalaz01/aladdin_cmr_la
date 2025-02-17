@@ -5,11 +5,9 @@ import tensorflow as tf
 
 from loader.data_generator import (BaseDataLoader, VoxelmorphDataLoader,
                                    VoxelmorphSegDataLoader)
-from loader.data_generator_seg import SegDataLoader
 from tf.metrics.metrics import dice_score
 from tf.losses.loss import l1_loss, l2_loss
 from tf.losses.deform import BendingEnergy, GradientNorm
-from tf.losses.segmentation import SoftDiceLoss
 from tf.models import aladdin_r
 
 import voxelmorph as vxm
@@ -54,31 +52,6 @@ def load_model(model: str, patient: str) -> tf.keras.Model:
     return model
 
 
-def load_seg_model(model: str, patient: str) -> tf.keras.Model:
-    """
-    Loads the appropriate segmentation model from the 'chekpoint' folder.
-
-    Parameters
-    ----------
-    model : str
-        The model's folder name.
-    patient : str
-        The patient's name.
-
-    Returns
-    -------
-    model : tf.keras.Model
-        The loaded image registration model.
-
-    """
-    model_path = os.path.join('..', 'checkpoint', model, patient, 'model.h5')
-    model = tf.keras.models.load_model(model_path, custom_objects={
-        'loss': tf.keras.losses.MeanSquaredError(),
-        'SoftDiceLoss': SoftDiceLoss})
-
-    return model
-
-
 def get_data_loader(model_type: str) -> Any:
     """
     Loads the appropriate data loader based on the model type.
@@ -87,7 +60,7 @@ def get_data_loader(model_type: str) -> Any:
     ----------
     model_type : str
         For which models to obtain the data loader for. Valid parameters are
-        'aladdin_r', 'vxm', 'vxmseg', 'aladdin_s'.
+        'aladdin_r', 'vxm', 'vxmseg'
 
     Returns
     -------
@@ -101,5 +74,3 @@ def get_data_loader(model_type: str) -> Any:
         return VoxelmorphDataLoader(memory_cache=False, disk_cache=False)
     elif model_type == 'vxmseg':
         return VoxelmorphSegDataLoader(memory_cache=False, disk_cache=False)
-    elif model_type == 'aladdin_s':
-        return SegDataLoader(memory_cache=False, disk_cache=False)
