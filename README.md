@@ -1,5 +1,9 @@
 # Aladdin: High-Resolution Maps of Left Atrial Displacements and Strains Estimated with 3D Cine MRI using Online Learning Neural Networks
 
+![icon](supplements/aladdin.jpg "Aladdin Icon")
+
+---
+
 This repository is the source code for Aladdin:
 * Details on the workflow can be found here: https://doi.org/10.1109/TMI.2025.3526364
 * Source code and file descriptions can be found in the subdirectory: https://github.com/cgalaz01/aladdin_cmr_la/tree/main/src

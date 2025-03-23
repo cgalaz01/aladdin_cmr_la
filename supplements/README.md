@@ -118,3 +118,34 @@ _<span id="SupTab1">SupTab. 1</span>_ Patient metrics including left atrial volu
 |:--:|
 | ![atlas_p3](regional_results/patient3.gif "Analysis of a patient case 3 using the atlas") |
 | _SupVid. 15_ The Mahalanobis distance of a patient case (57F with non-ischaemic cardiomyopathy) from the atlas across the cardiac cycle. The first column shows the distance of the displacement vector field, and the second column shows the distance of the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+
+| <span id="SupVid16">Supplementary Video 16</span> |
+|:--:|
+| ![atlas_h1_dvf](regional_results/healthy_dvf1.gif "Displacement and strain of a healthy case 1 mapped to the atlas") | 
+| _SupVid. 16_ The displacement vector fields and first principal strains of a healthy case (26M) mapped to the atlas across the cardiac cycle. The first column shows the displacement vector field, and the second column shows the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+
+| <span id="SupVid17">Supplementary Video 17</span> |
+|:--:|
+| ![atlas_h2_dvf](regional_results/healthy_dvf2.gif "Displacement and strain of a healthy case 2 mapped to the atlas") |
+| _SupVid. 17_ The displacement vector fields and first principal strains of a healthy case (22F) mapped to the atlas across the cardiac cycle. The first column shows the displacement vector field, and the second column shows the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+
+| <span id="SupVid18">Supplementary Video 18</span> |
+|:--:|
+| ![atlas_h3_dvf](regional_results/healthy_dvf3.gif "Displacement and strain of a healthy case 2 mapped to the atlas") |
+| _SupVid. 18_ The displacement vector fields and first principal strains of a healthy case (24F) mapped to the atlas across the cardiac cycle. The first column shows the displacement vector field, and the second column shows the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+
+| <span id="SupVid19">Supplementary Video 19</span> |
+|:--:|
+| ![atlas_p1_dvf](regional_results/patient_dvf1.gif "Displacement and strain of a patient case 1 mapped to the atlas") |
+| _SupVid. 19_ The displacement vector fields and first principal strains of a patient case (52F with myocarditis) mapped to the atlas across the cardiac cycle. The first column shows the displacement vector field, and the second column shows the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+
+| <span id="SupVid20">Supplementary Video 20</span> |
+|:--:|
+| ![atlas_p2_dvf](regional_results/patient_dvf2.gif "Displacement and strain of a patient case 2 mapped to the atlas") |
+| _SupVid. 20_ The displacement vector fields and first principal strains of a patient case (60M with myocardial infarction) mapped to the atlas across the cardiac cycle. The first column shows the displacement vector field, and the second column shows the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+
+| <span id="SupVid21">Supplementary Video 21</span> |
+|:--:|
+| ![atlas_p3_dvf](regional_results/patient_dvf3.gif "Displacement and strain of a patient case 3 mapped to the atlas") |
+| _SupVid. 21_ The displacement vector fields and first principal strains of a patient case (57F with non-ischaemic cardiomyopathy) mapped to the atlas across the cardiac cycle. The first column shows the displacement vector field, and the second column shows the first principal strain. The anterior and posterior views are shown in rows 1 and 2, respectively. |
+
