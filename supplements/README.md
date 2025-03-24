@@ -49,7 +49,7 @@
 | <span id="SupVid8">Supplementary Video 8</span> |
 |:--:|
 | ![dvf](registration/healthy1_results.gif "The displacement and strains of a representative case") | 
-| _SupVid. 8_ The displacement vector fields and first principal strain values across the carduac cycle for a representative case. |
+| _SupVid. 8_ The displacement vector fields and first principal strain values across the cardiac cycle for a representative case. |
 
 
 ## Global Results
