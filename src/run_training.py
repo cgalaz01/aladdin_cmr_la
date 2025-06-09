@@ -13,7 +13,7 @@ from configuration.configuration_aladdin_r import HyperParameters
 
 from tf.callbacks.callbacks import get_reg_callbacks
 from tf.metrics.metrics import dice_score
-from tf.models import aladdin_r, voxelmorph
+from tf.models import aladdin_r, voxelmorph_models
 from tf.losses.loss import l1_loss, l2_loss
 from tf.losses.deform import BendingEnergy, GradientNorm
 from tf.utils.seed import set_global_seed
@@ -87,9 +87,9 @@ def get_model(model_type: str, generator: Any) -> keras.Model:
     if model_type == 'aladdin_r':
         return aladdin_r.get_model_3d(generator.image_size)
     elif model_type == 'vxm':
-        return voxelmorph.get_model(generator.image_size[:-1])
+        return voxelmorph_models.get_model(generator.image_size[:-1])
     elif model_type == 'vxmseg':
-        return voxelmorph.get_model_seg(generator.image_size[:-1])
+        return voxelmorph_models.get_model_seg(generator.image_size[:-1])
         
     return None
 

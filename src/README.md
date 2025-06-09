@@ -71,7 +71,7 @@ Defines the metrics to estimate during training.
 
 Defines Aladdin-R's TensorFlow architecture.
 
-### > src/tf/models/voxelmorph.py
+### > src/tf/models/voxelmorph_models.py
 
 Defines VoxelMorph's and VoxelMorph-Seg's TensorFlow architecture.
 
