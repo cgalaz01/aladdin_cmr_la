@@ -36,11 +36,11 @@ def load_atlas(atlas_path: str) -> Tuple[sitk.Image, sitk.Image, sitk.Image, sit
         Atlas mesh.
 
     """
-    ref_image = sitk.ReadImage(os.path.join(base_path, 'reference_image.nii.gz'))
-    ref_seg = sitk.ReadImage(os.path.join(base_path, 'reference_segmentation.nii.gz'))
-    atlas_seg = sitk.ReadImage(os.path.join(base_path, 'atlas_segmentation.nii.gz'))
+    ref_image = sitk.ReadImage(os.path.join(atlas_path, 'reference_image.nii.gz'))
+    ref_seg = sitk.ReadImage(os.path.join(atlas_path, 'reference_segmentation.nii.gz'))
+    atlas_seg = sitk.ReadImage(os.path.join(atlas_path, 'atlas_segmentation.nii.gz'))
     
-    atlas_mesh = pv.read(os.path.join(base_path, 'atlas_mesh.vtk'))
+    atlas_mesh = pv.read(os.path.join(atlas_path, 'atlas_mesh.vtk'))
 
     return ref_image, ref_seg, atlas_seg, atlas_mesh
 
@@ -194,6 +194,7 @@ def compute_meshes(segmentation: sitk.Image, displacement_fields: List[sitk.Imag
         The list of computed meshes.
 
     """
+    spacing = segmentation.GetSpacing()
     segmentation = sitk.GetArrayFromImage(segmentation)
     segmentation = np.swapaxes(segmentation, 0, 2)
     # Make sure LA is only present
@@ -211,7 +212,6 @@ def compute_meshes(segmentation: sitk.Image, displacement_fields: List[sitk.Imag
         displacement_field = sitk.GetArrayFromImage(displacement_field)
         displacement_field = np.swapaxes(displacement_field, 0, 2)
         # Convert the displacement field from physical space to image space
-        spacing = segmentation.GetSpacing()
         for axis in range(len(spacing)):
             displacement_field[..., axis] /= spacing[axis]
         
@@ -707,9 +707,8 @@ if __name__ == '__main__':
         segmentation = get_segmentation_edge(segmentation)
         
         print('Executing non-rigid registration...')
-        displacement_field = nonrigid_register_cases(image, segmentation,
-                                                     atlas_seg, atlas_edge_seg,
-                                                     initial_alignment=None)
+        displacement_field = nonrigid_register_cases([image], [segmentation],
+                                                     atlas_seg, atlas_edge_seg)[0]
                                                      
         # Apply the displacement to all the meshes across the cardiac cycle
         for i in range(len(meshes)):

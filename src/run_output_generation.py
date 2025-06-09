@@ -53,8 +53,8 @@ def load_files(img_folder_path: str, seg_folder_path: str, folder_seg_path:str,
     moving_file_path = os.path.join(img_folder_path, file_list[moving_idx])
     fixed_seg_file_path = os.path.join(seg_folder_path, file_list[fixed_idx])
     moving_seg_file_path = os.path.join(seg_folder_path, file_list[moving_idx])
-    fixed_cont_seg_file_path = os.path.join(folder_seg_path, file_list[moving_idx])
-    moving_cont_seg_file_path = os.path.join(folder_seg_path, file_list[fixed_idx])
+    fixed_cont_seg_file_path = os.path.join(folder_seg_path, file_list[fixed_idx])
+    moving_cont_seg_file_path = os.path.join(folder_seg_path, file_list[moving_idx])
     
     # Load images
     mask_fixed = dg.to_numpy(sitk.ReadImage(fixed_seg_file_path), int)
